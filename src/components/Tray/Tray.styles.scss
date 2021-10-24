@@ -1,0 +1,23 @@
+.tray {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .button-bubble {
+    margin: 2rem 3rem;
+  }
+
+  &__middle {
+    display: flex;
+    border-radius: 3.2rem 3.2rem 0 0;
+    background-color: #b3bbbe;
+    padding: 1rem;
+
+    .button-bubble,
+    .separator {
+      margin: 1rem;
+    }
+  }
+}

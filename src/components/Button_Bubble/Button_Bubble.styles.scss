@@ -1,0 +1,49 @@
+@import '../../styles//variables';
+
+.button-bubble {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  background-color: white;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &.active {
+    color: white;
+    background-color: $color-primary;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      box-sizing: border-box;
+      border: 1rem solid $color-secondary;
+      border-radius: 100%;
+      transform: scale(1);
+      transform-origin: center;
+      animation: bubble 0.3s linear forwards;
+    }
+  }
+
+  @keyframes bubble {
+    from {
+      transform: scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: scale(1.4);
+      opacity: 0;
+    }
+  }
+}

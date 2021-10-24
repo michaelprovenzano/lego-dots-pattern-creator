@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap');
+
+$black: #072126;
+$color-primary: #1e95ac;
+$color-secondary: #1e95ac;
+$backgroundColor: #464646;
+
+:root {
+  font-size: 62.5%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: white;
+  background-color: #464646;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1.6rem;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  font-size: 1.6rem;
+}

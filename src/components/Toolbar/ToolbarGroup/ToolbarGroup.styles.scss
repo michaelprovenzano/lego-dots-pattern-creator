@@ -1,0 +1,12 @@
+.toolbar-group {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1000px;
+  background-color: #b3bbbe;
+  margin-bottom: 1.6rem;
+  padding: 0.5rem;
+
+  .button-bubble {
+    margin: 0.5rem;
+  }
+}

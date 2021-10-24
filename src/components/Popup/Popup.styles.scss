@@ -1,0 +1,24 @@
+@import '../../styles/variables';
+
+.popup {
+  display: none;
+  padding: 1rem;
+  background-color: $light-gray;
+  border-radius: 3.2rem;
+  position: absolute;
+
+  &.open {
+    display: inline-flex;
+    justify-content: center;
+    min-width: 50vw;
+    right: 0;
+    top: -50%;
+    transform: translateX(-8rem);
+  }
+
+  &_body {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
