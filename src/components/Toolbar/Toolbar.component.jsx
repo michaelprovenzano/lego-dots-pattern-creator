@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Toolbar.styles.scss';
 import { connect } from 'react-redux';
 
@@ -14,17 +14,15 @@ import { ReactComponent as AddTileQuarterRoundIcon } from '../../images/icon-add
 import { ReactComponent as PaintIcon } from '../../images/icon-paint.svg';
 import { ReactComponent as ActivePaintForegroundIcon } from '../../images/icon-active-paint-foreground.svg';
 import { ReactComponent as ActivePaintBackgroundIcon } from '../../images/icon-active-paint-background.svg';
-import { ReactComponent as ActiveColorIcon } from '../../images/icon-active-color.svg';
 import { ReactComponent as RemoveIcon } from '../../images/icon-remove.svg';
 import { ReactComponent as RotateIcon } from '../../images/icon-rotate.svg';
 import { ReactComponent as EyeDropperIcon } from '../../images/icon-dropper.svg';
 
-import { setSettings } from '../../redux/settings/settings.actions';
-import legoColors from '../../logic/legoColors';
+import { setEditor } from '../../redux/editor/editor.actions';
 
-const Toolbar = ({ app, settings, setSettings }) => {
+const Toolbar = ({ editor, setEditor }) => {
   const [activeColor, inactiveColor] = ['white', '#072126'];
-  const { editMode, paintType, addShape } = settings;
+  const { editMode, paintType, addShape } = editor;
 
   const nextShape = () => {
     const shapes = ['1x1 Tile', '1x1 Tile Round', '1x1 Tile Quarter Round', '1x1 Tile Half Round'];
@@ -33,20 +31,13 @@ const Toolbar = ({ app, settings, setSettings }) => {
     if (index === shapes.length) index = 0;
     let nextShape = shapes[index];
 
-    app.setAddShape(nextShape);
-    setSettings({ addShape: nextShape });
+    setEditor({ addShape: nextShape });
   };
 
   return (
     <div className='toolbar'>
       <ToolbarGroup>
-        <ButtonBubble
-          active={editMode === 'add'}
-          onClick={e => {
-            app.setEditMode('add');
-            setSettings({ editMode: 'add' });
-          }}
-        >
+        <ButtonBubble active={editMode === 'add'} onClick={e => setEditor({ editMode: 'add' })}>
           <AddIcon fill={editMode === 'add' ? activeColor : inactiveColor} />
         </ButtonBubble>
         <ButtonBubble onClick={nextShape}>
@@ -60,28 +51,17 @@ const Toolbar = ({ app, settings, setSettings }) => {
         <ButtonBubble
           active={editMode === 'paint'}
           onClick={e => {
-            app.setEditMode('paint');
-            setSettings({ editMode: 'paint' });
+            setEditor({ editMode: 'paint' });
           }}
         >
           <PaintIcon fill={editMode === 'paint' ? activeColor : inactiveColor} />
         </ButtonBubble>
         {paintType === 'background' ? (
-          <ButtonBubble
-            onClick={e => {
-              setSettings({ paintType: 'foreground' });
-              app.setPaintType('foreground');
-            }}
-          >
+          <ButtonBubble onClick={e => setEditor({ paintType: 'foreground' })}>
             <ActivePaintBackgroundIcon />
           </ButtonBubble>
         ) : (
-          <ButtonBubble
-            onClick={e => {
-              setSettings({ paintType: 'background' });
-              app.setPaintType('background');
-            }}
-          >
+          <ButtonBubble onClick={e => setEditor({ paintType: 'background' })}>
             <ActivePaintForegroundIcon />
           </ButtonBubble>
         )}
@@ -89,25 +69,18 @@ const Toolbar = ({ app, settings, setSettings }) => {
         <ButtonBubble
           active={editMode === 'dropper'}
           onClick={e => {
-            app.setEditMode('dropper');
-            setSettings({ editMode: 'dropper' });
+            setEditor({ editMode: 'dropper' });
           }}
         >
           <EyeDropperIcon fill={editMode === 'dropper' ? activeColor : inactiveColor} />
         </ButtonBubble>
-        <ActiveColor activeColor={settings.paintColor} setSettings={setSettings} app={app} />
-        {/* <ButtonBubble onClick={e => setSettings({ paintColor: legoColors[3] })}>
-          <ActiveColorIcon
-            fill={`rgb(${settings.paintColor.rgb.red}, ${settings.paintColor.rgb.green}, ${settings.paintColor.rgb.blue})`}
-          />
-        </ButtonBubble> */}
+        <ActiveColor activeColor={editor.paintColor} setEditor={setEditor} />
       </ToolbarGroup>
       <ToolbarGroup>
         <ButtonBubble
           active={editMode === 'delete'}
           onClick={e => {
-            app.setEditMode('delete');
-            setSettings({ editMode: 'delete' });
+            setEditor({ editMode: 'delete' });
           }}
         >
           <RemoveIcon fill={editMode === 'delete' ? activeColor : inactiveColor} />
@@ -115,8 +88,7 @@ const Toolbar = ({ app, settings, setSettings }) => {
         <ButtonBubble
           active={editMode === 'rotate'}
           onClick={e => {
-            app.setEditMode('rotate');
-            setSettings({ editMode: 'rotate' });
+            setEditor({ editMode: 'rotate' });
           }}
         >
           <RotateIcon fill={editMode === 'rotate' ? activeColor : inactiveColor} />
@@ -128,4 +100,4 @@ const Toolbar = ({ app, settings, setSettings }) => {
 
 const mapStateToProps = state => ({ ...state });
 
-export default connect(mapStateToProps, { setSettings })(Toolbar);
+export default connect(mapStateToProps, { setEditor })(Toolbar);

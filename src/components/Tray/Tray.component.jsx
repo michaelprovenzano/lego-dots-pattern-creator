@@ -4,6 +4,8 @@ import './Tray.styles.scss';
 import { connect } from 'react-redux';
 
 import ButtonBubble from '../Button_Bubble/Button_Bubble.component';
+import GeneratePatternButton from '../GeneratePatternButton/GeneratePatternButton.component';
+
 import { ReactComponent as PartsListIcon } from '../../images/icon-parts-list.svg';
 import { ReactComponent as SettingsIcon } from '../../images/icon-settings.svg';
 import { ReactComponent as JPGIcon } from '../../images/icon-jpg.svg';
@@ -51,9 +53,7 @@ const Tray = ({ app, settings, setSettings }) => {
           <RandomPatternsIcon stroke={settings.viewMode === 'random' ? 'white' : black} />
         </ButtonBubble>
       </div>
-      <ButtonBubble onClick={e => app.newPattern()}>
-        <GeneratePatternIcon stroke={primary} />
-      </ButtonBubble>
+      <GeneratePatternButton />
     </div>
   );
 };

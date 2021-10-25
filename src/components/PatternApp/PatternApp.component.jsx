@@ -1,18 +1,17 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as PIXI from 'pixi.js';
 import { Viewport } from 'pixi-viewport';
-import PixiApp from '../../logic/PixiApp';
+import Pattern from './Pattern.component';
+import { connect } from 'react-redux';
+import { setApp } from '../../redux/app/app.actions';
+import { setViewport } from '../../redux/viewport/viewport.actions';
 
-const Canvas = () => {
+const Canvas = ({ patterns, setViewport, setApp }) => {
   const ref = useRef(null);
-  const [app, setApp] = useState(null);
-  const [activeColor, setActiveColor] = useState(null);
 
   useEffect(() => {
     const current = ref.current;
-    const app = init(current);
-
-    return () => current.removeChild(app.view);
+    init(current);
   }, []);
 
   const init = parent => {
@@ -27,7 +26,7 @@ const Canvas = () => {
     let worldHeight = 1000;
 
     // create viewport
-    const viewport = new Viewport({
+    const view = new Viewport({
       screenWidth: window.innerWidth,
       screenHeight: window.innerHeight,
       worldWidth,
@@ -36,33 +35,32 @@ const Canvas = () => {
       interaction: app.renderer.plugins.interaction, // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
     });
 
-    // add the viewport to the stage
-    app.stage.addChild(viewport);
+    // add the view to the stage
+    app.stage.addChild(view);
 
     // activate plugins
-    viewport
-      .drag({ keyToPress: ['Space'] })
+    view
+      .drag({ keyToPress: ['AltLeft', 'AltRight'] })
       .pinch()
       .wheel()
       .decelerate();
-    viewport.moveCenter(worldWidth / 2, worldHeight / 2);
+    view.moveCenter(worldWidth / 2, worldHeight / 2);
 
     // generate pattern
-    const pixiApp = new PixiApp(viewport, {
-      app,
-      afterDropper: el => setActiveColor(el.getColor()),
-    });
-    pixiApp.newPattern();
-    setApp(pixiApp);
-
-    return { view: app.view, viewport, pixiApp };
+    setViewport(view);
+    setApp(app);
   };
 
   return (
     <div className='parent'>
-      <div ref={ref} style={{ width: window.innerWidth, height: window.innerHeight }}></div>;
+      <div ref={ref} style={{ width: window.innerWidth, height: window.innerHeight }}>
+        {patterns.single && <Pattern pattern={patterns.single} />}
+      </div>
+      ;
     </div>
   );
 };
 
-export default Canvas;
+const mapStateToProps = state => ({ ...state });
+
+export default connect(mapStateToProps, { setApp, setViewport })(Canvas);

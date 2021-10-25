@@ -33,3 +33,22 @@ let generatorSettings = {
   },
   plateColors: 'legoColors[]',
 };
+
+/*
+
+APP HEIRARCHY
+
+Canvas.jsx
+<Canvas>
+  <PatternContainer>
+    <Pattern pattern={pattern} />
+  </PatternContainer>
+</Canvas>
+
+Pattern.jsx
+<Pattern>
+  <Dot />
+  <Plate />
+</Pattern>
+
+*/

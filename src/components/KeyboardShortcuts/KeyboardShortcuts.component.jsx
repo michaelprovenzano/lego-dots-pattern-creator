@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setSettings } from '../../redux/settings/settings.actions';
+import { setEditor } from '../../redux/editor/editor.actions';
 
-const KeyboardShortcuts = ({ app, settings, setSettings }) => {
+const KeyboardShortcuts = ({ app, editor, setEditor }) => {
   useEffect(() => {
     window.addEventListener('keydown', handleKeydown);
 
@@ -13,47 +13,37 @@ const KeyboardShortcuts = ({ app, settings, setSettings }) => {
     if (!app) return;
     switch (e.code) {
       case 'KeyA':
-        setSettings({ editMode: 'add' });
-        app.setEditMode('add');
+        setEditor({ editMode: 'add' });
         break;
       case 'KeyC':
-        setSettings({ editMode: 'paint' });
-        app.setEditMode('paint');
+        setEditor({ editMode: 'paint' });
         break;
       case 'KeyD':
-        setSettings({ editMode: 'delete' });
-        app.setEditMode('delete');
+        setEditor({ editMode: 'delete' });
         break;
       case 'KeyI':
       case 'KeyF':
-        setSettings({ editMode: 'dropper' });
-        app.setEditMode('dropper');
+        setEditor({ editMode: 'dropper' });
         break;
       case 'KeyR':
-        setSettings({ editMode: 'rotate' });
-        app.setEditMode('rotate');
+        setEditor({ editMode: 'rotate' });
         break;
       case 'KeyX':
-        let type = settings.paintType;
+        let type = editor.paintType;
         type === 'foreground' ? (type = 'background') : (type = 'foreground');
-        setSettings({ paintType: type });
-        app.setPaintType(type);
+        setEditor({ paintType: type });
         break;
       case 'Digit1':
-        setSettings({ addShape: '1x1 Tile' });
-        app.setAddShape('1x1 Tile');
+        setEditor({ addShape: '1x1 Tile' });
         break;
       case 'Digit2':
-        setSettings({ addShape: '1x1 Tile Round' });
-        app.setAddShape('1x1 Tile Round');
+        setEditor({ addShape: '1x1 Tile Round' });
         break;
       case 'Digit3':
-        setSettings({ addShape: '1x1 Tile Quarter Round' });
-        app.setAddShape('1x1 Tile Quarter Round');
+        setEditor({ addShape: '1x1 Tile Quarter Round' });
         break;
       case 'Digit4':
-        setSettings({ addShape: '1x1 Tile Half Round' });
-        app.setAddShape('1x1 Tile Half Round');
+        setEditor({ addShape: '1x1 Tile Half Round' });
         break;
       default:
         break;
@@ -65,4 +55,4 @@ const KeyboardShortcuts = ({ app, settings, setSettings }) => {
 
 const mapStateToProps = state => ({ ...state });
 
-export default connect(mapStateToProps, { setSettings })(KeyboardShortcuts);
+export default connect(mapStateToProps, { setEditor })(KeyboardShortcuts);

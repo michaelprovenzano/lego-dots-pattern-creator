@@ -1,5 +1,4 @@
-import LEGOElement_Empty from './elements/LEGOElement_Empty';
-import elementTypes from './ElementTypes';
+import LEGOElement from './LEGOElement';
 import * as PIXI from 'pixi.js';
 
 class DOT {
@@ -23,18 +22,17 @@ class DOT {
   }
 
   add(type, color) {
-    this.element = new elementTypes[type]({ color });
+    this.element = new LEGOElement({ type, color });
     this.render();
   }
 
   delete() {
-    this.element = new LEGOElement_Empty();
+    this.element = new LEGOElement({ type: 'Empty' });
     this.render();
   }
 
   rotate() {
     this.element.rotate(90);
-    this.render();
   }
 
   setColor(color) {
