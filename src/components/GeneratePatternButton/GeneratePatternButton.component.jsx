@@ -8,12 +8,13 @@ import { setPatterns } from '../../redux/patterns/patterns.actions';
 const GeneratePatternButton = ({ generatorSettings, setPatterns }) => {
   const primary = '#1E95AC';
 
-  const { width, height } = generatorSettings.patternSize;
   let dotColors = generatorSettings;
   let plateColors = generatorSettings['plateColors'];
   let { maxColors, density } = generatorSettings;
 
   const newPattern = () => {
+    const { width, height } = generatorSettings.patternSize;
+
     let pattern = new Pattern({
       width,
       height,
@@ -22,11 +23,27 @@ const GeneratePatternButton = ({ generatorSettings, setPatterns }) => {
       maxColors,
       density: { empty: density },
     });
-    setPatterns({ single: pattern });
+
+    return pattern;
+  };
+
+  const generatePatterns = () => {
+    const { width, height } = generatorSettings.patternRepeatSize;
+
+    const singlePattern = newPattern();
+    const randomPatterns = [];
+
+    for (let i = 0; i < height; i++) {
+      for (let j = 0; j < width; j++) {
+        randomPatterns.push(newPattern());
+      }
+    }
+
+    setPatterns({ single: singlePattern, multiplePatterns: randomPatterns });
   };
 
   return (
-    <ButtonBubble onClick={newPattern}>
+    <ButtonBubble onClick={generatePatterns}>
       <GeneratePatternIcon stroke={primary} />
     </ButtonBubble>
   );

@@ -19,6 +19,7 @@ const Patterns = ({ patterns, editor, generatorSettings, setPatterns }) => {
   useEffect(() => {
     if (patterns.single && editor.viewMode === 'single') handleSingle();
     if (patterns.single && editor.viewMode === 'repeated') handleRepeated();
+    if (patterns.multiple && editor.viewMode === 'random') handleRepeated();
 
     // eslint-disable-next-line
   }, [editor.viewMode]);
@@ -58,6 +59,11 @@ const Patterns = ({ patterns, editor, generatorSettings, setPatterns }) => {
         repeatedPatterns.map((center, i) => (
           <Pattern pattern={patterns.single} center={center} key={i} />
         ))}
+      {patterns.multiplePatterns && editor.viewMode === 'random' && repeatedPatterns.length > 0
+        ? patterns.multiplePatterns.map((pattern, i) => (
+            <Pattern pattern={pattern} center={repeatedPatterns[i]} key={i} />
+          ))
+        : null}
     </Fragment>
   );
 };

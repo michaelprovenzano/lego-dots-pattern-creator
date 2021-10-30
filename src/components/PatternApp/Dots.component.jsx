@@ -25,19 +25,23 @@ const Dots = ({ pattern, viewport, editor, center, generatorSettings, setPattern
         sprite.position.set(center[0] - width / 2 + x, center[1] - height / 2 + y);
 
         sprite.interactive = true;
-        sprite.click = e => onClick(e, { dot: el, pattern, setPatterns, editor, setEditor });
+        let viewMode = false;
+        if (editor.viewMode === 'random') viewMode = true;
+        sprite.click = e =>
+          onClick(e, { dot: el, pattern, setPatterns, editor, setEditor, viewMode });
 
         layer.addChild(sprite);
-        // setDots([...dots, sprite]);
 
         x += studSize;
       }
       y += studSize;
     }
 
-    const onClick = (e, { dot, pattern, setPatterns, editor, setEditor }) => {
+    const onClick = (e, { dot, pattern, setPatterns, editor, setEditor, viewMode }) => {
       let isAltDown = e.data.originalEvent.altKey;
       if (isAltDown) return;
+
+      if (viewMode) return setPatterns({ single: { ...pattern } });
 
       switch (editor.editMode) {
         case 'add':
@@ -70,9 +74,7 @@ const Dots = ({ pattern, viewport, editor, center, generatorSettings, setPattern
     return () => {
       viewport.removeChild(layer);
     };
-    // eslint-disable-next-line
-  }, [pattern, viewport, editor, center]);
-  // {dots && dots.map(dot => <Dot dot={dot} layer={dotsLayer} />)}
+  });
   return null;
 };
 
