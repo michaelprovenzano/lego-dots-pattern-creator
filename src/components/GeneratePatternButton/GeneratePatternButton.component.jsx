@@ -9,10 +9,19 @@ const GeneratePatternButton = ({ generatorSettings, setPatterns }) => {
   const primary = '#1E95AC';
 
   const { width, height } = generatorSettings.patternSize;
-  let dotColors = generatorSettings['1x1Tile']['colors'];
+  let dotColors = generatorSettings;
+  let plateColors = generatorSettings['plateColors'];
+  let { maxColors, density } = generatorSettings;
 
   const newPattern = () => {
-    let pattern = new Pattern({ width, height, dotColors, plateColors: dotColors });
+    let pattern = new Pattern({
+      width,
+      height,
+      dotColors,
+      plateColors: plateColors,
+      maxColors,
+      density: { empty: density },
+    });
     setPatterns({ single: pattern });
   };
 

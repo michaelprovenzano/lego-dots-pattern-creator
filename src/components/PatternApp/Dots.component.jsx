@@ -1,14 +1,12 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import * as PIXI from 'pixi.js';
 import { connect } from 'react-redux';
 import { setPatterns } from '../../redux/patterns/patterns.actions';
 import { setEditor } from '../../redux/editor/editor.actions';
 
-const Dots = ({ pattern, viewport, editor, center, setPatterns, setEditor }) => {
-  // let [dots, setDots] = useState([]);
-
+const Dots = ({ pattern, viewport, editor, center, generatorSettings, setPatterns, setEditor }) => {
   useEffect(() => {
-    let studSize = 50;
+    const studSize = generatorSettings.studSize;
     let [width, height] = [studSize * pattern.width, studSize * pattern.height];
 
     let layer = new PIXI.Container();
@@ -75,7 +73,7 @@ const Dots = ({ pattern, viewport, editor, center, setPatterns, setEditor }) => 
     // eslint-disable-next-line
   }, [pattern, viewport, editor, center]);
   // {dots && dots.map(dot => <Dot dot={dot} layer={dotsLayer} />)}
-  return <Fragment></Fragment>;
+  return null;
 };
 
 const mapStateToProps = state => ({ ...state });

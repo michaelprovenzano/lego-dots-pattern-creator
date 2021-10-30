@@ -3,10 +3,10 @@ import * as PIXI from 'pixi.js';
 import { rgbToHex } from '../../logic/utils';
 import { connect } from 'react-redux';
 
-const Plate = ({ pattern, viewport, location, app }) => {
+const Plate = ({ pattern, viewport, generatorSettings, location, app }) => {
   useEffect(() => {
     let { plateColor, width, height } = pattern;
-    let studSize = 50;
+    const studSize = generatorSettings.studSize;
     let [plateWidth, plateHeight] = [width * studSize, height * studSize];
 
     let layer = new PIXI.Container();

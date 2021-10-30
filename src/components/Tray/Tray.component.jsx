@@ -1,6 +1,7 @@
 import React from 'react';
 import './Tray.styles.scss';
 
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ButtonBubble from '../Button_Bubble/Button_Bubble.component';
@@ -14,14 +15,14 @@ import { ReactComponent as PatternSettingsIcon } from '../../images/icon-pattern
 import { ReactComponent as MultiplePatternsIcon } from '../../images/icon-multiple-patterns.svg';
 import { ReactComponent as RandomPatternsIcon } from '../../images/icon-random-patterns.svg';
 import { ReactComponent as SinglePatternIcon } from '../../images/icon-single-pattern.svg';
-import { ReactComponent as GeneratePatternIcon } from '../../images/icon-generate-pattern.svg';
 import { ReactComponent as SeparatorIcon } from '../../images/icon-separator.svg';
 
-import { setSettings } from '../../redux/settings/settings.actions';
+import { setEditor } from '../../redux/editor/editor.actions';
 
-const Tray = ({ app, settings, setSettings }) => {
+const Tray = ({ app, editor, setEditor }) => {
   const black = '#072126';
   const primary = '#1E95AC';
+  const viewMode = editor.viewMode;
 
   return (
     <div className='tray'>
@@ -40,17 +41,28 @@ const Tray = ({ app, settings, setSettings }) => {
           <JPGIcon stroke={black} />
         </ButtonBubble>
         <SeparatorIcon className='separator' />
-        <ButtonBubble>
-          <PatternSettingsIcon stroke={black} />
+        <Link to='/pattern-settings/home'>
+          <ButtonBubble>
+            <PatternSettingsIcon stroke={black} />
+          </ButtonBubble>
+        </Link>
+        <ButtonBubble
+          active={viewMode === 'single'}
+          onClick={e => setEditor({ viewMode: 'single' })}
+        >
+          <SinglePatternIcon stroke={viewMode === 'single' ? 'white' : black} />
         </ButtonBubble>
-        <ButtonBubble active={settings.viewMode === 'single'}>
-          <SinglePatternIcon stroke={settings.viewMode === 'single' ? 'white' : black} />
+        <ButtonBubble
+          active={viewMode === 'repeated'}
+          onClick={e => setEditor({ viewMode: 'repeated' })}
+        >
+          <MultiplePatternsIcon stroke={viewMode === 'repeated' ? 'white' : black} />
         </ButtonBubble>
-        <ButtonBubble active={settings.viewMode === 'repeated'}>
-          <MultiplePatternsIcon stroke={settings.viewMode === 'repeated' ? 'white' : black} />
-        </ButtonBubble>
-        <ButtonBubble active={settings.viewMode === 'random'}>
-          <RandomPatternsIcon stroke={settings.viewMode === 'random' ? 'white' : black} />
+        <ButtonBubble
+          active={viewMode === 'random'}
+          onClick={e => setEditor({ viewMode: 'random' })}
+        >
+          <RandomPatternsIcon stroke={viewMode === 'random' ? 'white' : black} />
         </ButtonBubble>
       </div>
       <GeneratePatternButton />
@@ -60,4 +72,4 @@ const Tray = ({ app, settings, setSettings }) => {
 
 const mapStateToProps = state => ({ ...state });
 
-export default connect(mapStateToProps, { setSettings })(Tray);
+export default connect(mapStateToProps, { setEditor })(Tray);

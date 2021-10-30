@@ -3,8 +3,17 @@ import legoColors from '../../logic/legoColors';
 
 const INITIAL_STATE = {
   patternSize: { width: 6, height: 6 },
+  patternRepeatSize: {
+    width: 20,
+    height: 20,
+  },
+  worldDimensions: {
+    width: 1000,
+    height: 1000,
+  },
+  studSize: 50,
   maxColors: 4,
-  density: 50,
+  density: 5,
   '1x1Tile': {
     colors: legoColors,
     density: 50,

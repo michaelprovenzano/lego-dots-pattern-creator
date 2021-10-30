@@ -1,17 +1,25 @@
 import React, { useRef, useEffect } from 'react';
 import * as PIXI from 'pixi.js';
 import { Viewport } from 'pixi-viewport';
-import Pattern from './Pattern.component';
+import Patterns from './Patterns.component';
 import { connect } from 'react-redux';
 import { setApp } from '../../redux/app/app.actions';
 import { setViewport } from '../../redux/viewport/viewport.actions';
 
-const Canvas = ({ patterns, setViewport, setApp }) => {
+const Canvas = ({ generatorSettings, setViewport, setApp }) => {
   const ref = useRef(null);
+  let debug = true;
 
   useEffect(() => {
     const current = ref.current;
     init(current);
+
+    return () => {
+      // remove the child on rerend
+      current.textContent = '';
+    };
+
+    // eslint-disable-next-line
   }, []);
 
   const init = parent => {
@@ -22,8 +30,8 @@ const Canvas = ({ patterns, setViewport, setApp }) => {
     });
     parent.appendChild(app.view);
 
-    let worldWidth = 1000;
-    let worldHeight = 1000;
+    let worldWidth = generatorSettings.worldDimensions.width;
+    let worldHeight = generatorSettings.worldDimensions.height;
 
     // create viewport
     const view = new Viewport({
@@ -34,6 +42,8 @@ const Canvas = ({ patterns, setViewport, setApp }) => {
 
       interaction: app.renderer.plugins.interaction, // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
     });
+
+    if (debug) border(view);
 
     // add the view to the stage
     app.stage.addChild(view);
@@ -51,10 +61,15 @@ const Canvas = ({ patterns, setViewport, setApp }) => {
     setApp(app);
   };
 
+  function border(viewport) {
+    const line = viewport.addChild(new PIXI.Graphics());
+    line.lineStyle(10, 0xff0000).drawRect(0, 0, viewport.worldWidth, viewport.worldHeight);
+  }
+
   return (
     <div className='parent'>
       <div ref={ref} style={{ width: window.innerWidth, height: window.innerHeight }}>
-        {patterns.single && <Pattern pattern={patterns.single} />}
+        <Patterns />
       </div>
       ;
     </div>

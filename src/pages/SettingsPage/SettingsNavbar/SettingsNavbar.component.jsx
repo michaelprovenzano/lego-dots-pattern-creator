@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SettingsNavbar.styles.scss';
 
@@ -16,29 +16,51 @@ const SettingsNavbar = () => {
   const black = '#072126';
   const primary = '#1E95AC';
 
+  const [active, setActive] = useState('home');
+
   return (
     <div className='settings-navbar'>
       <div className='settings-navbar__left'>
-        <ButtonBubble active={true}>
-          <HomeSettingIcon fill={'white'} />
-        </ButtonBubble>
+        <Link to='/pattern-settings/home' onClick={e => setActive('home')}>
+          <ButtonBubble active={active === 'home'}>
+            <HomeSettingIcon fill={active === 'home' ? 'white' : black} />
+          </ButtonBubble>
+        </Link>
         <SeparatorIcon />
-        <ButtonBubble active={false}>
-          <TileSettingIcon fill={black} />
-        </ButtonBubble>
-        <ButtonBubble active={false}>
-          <RoundSettingsIcon fill={black} />
-        </ButtonBubble>
-        <ButtonBubble active={false}>
-          <HalfRoundSettingsIcons fill={black} />
-        </ButtonBubble>
-        <ButtonBubble active={false}>
-          <QuarterRoundSettingsIcon fill={black} />
-        </ButtonBubble>
+        <Link to='/pattern-settings/1x1-tile' onClick={e => setActive('1x1-tile')}>
+          <ButtonBubble active={active === '1x1-tile'}>
+            <TileSettingIcon fill={active === '1x1-tile' ? 'white' : black} />
+          </ButtonBubble>
+        </Link>
+        <Link to='/pattern-settings/1x1-tile-round' onClick={e => setActive('1x1-tile-round')}>
+          <ButtonBubble active={active === '1x1-tile-round'}>
+            <RoundSettingsIcon fill={active === '1x1-tile-round' ? 'white' : black} />
+          </ButtonBubble>
+        </Link>
+        <Link
+          to='/pattern-settings/1x1-tile-half-round'
+          onClick={e => setActive('1x1-tile-half-round')}
+        >
+          <ButtonBubble active={active === '1x1-tile-half-round'}>
+            <HalfRoundSettingsIcons fill={active === '1x1-tile-half-round' ? 'white' : black} />
+          </ButtonBubble>
+        </Link>
+        <Link
+          to='/pattern-settings/1x1-tile-quarter-round'
+          onClick={e => setActive('1x1-tile-quarter-round')}
+        >
+          <ButtonBubble active={active === '1x1-tile-quarter-round'}>
+            <QuarterRoundSettingsIcon
+              fill={active === '1x1-tile-quarter-round' ? 'white' : black}
+            />
+          </ButtonBubble>
+        </Link>
         <SeparatorIcon />
-        <ButtonBubble active={false}>
-          <PlateSettingsIcon stroke={black} />
-        </ButtonBubble>
+        <Link to='/pattern-settings/plate' onClick={e => setActive('plate')}>
+          <ButtonBubble active={active === 'plate'}>
+            <PlateSettingsIcon stroke={active === 'plate' ? 'white' : black} />
+          </ButtonBubble>
+        </Link>
         <SeparatorIcon />
         <div className='settings-navbar__name'>Pattern Generator Settings</div>
       </div>

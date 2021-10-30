@@ -1,30 +1,20 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import Dots from './Dots.component';
 import Plate from './Plate.component';
 import { connect } from 'react-redux';
 
-const Pattern = ({ viewport, pattern }) => {
-  const [patternCenter, setPatternCenter] = useState([0, 0]);
-  const [center, setCenter] = useState([0, 0]);
+const Pattern = ({ pattern, generatorSettings, viewport, center }) => {
+  const studSize = generatorSettings.studSize;
+  let { width, height } = pattern;
 
-  useEffect(() => {
-    let { width, height } = pattern;
+  let plateWidth = width * studSize;
+  let plateHeight = height * studSize;
 
-    const worldWidth = 1000;
-    const worldHeight = 1000;
-    const worldCenter = [worldWidth / 2, worldHeight / 2];
-    setCenter(worldCenter);
-    let studSize = 50;
-    let plateWidth = width * studSize;
-    let plateHeight = height * studSize;
-    setPatternCenter([worldCenter[0] - plateWidth / 2, worldCenter[1] - plateHeight / 2]);
-
-    // eslint-disable-next-line
-  }, [pattern, viewport]);
+  let topLeft = [center[0] - plateWidth / 2, center[1] - plateHeight / 2];
 
   return (
     <Fragment>
-      {pattern && <Plate pattern={pattern} location={patternCenter} />}
+      {pattern && <Plate pattern={pattern} location={topLeft} />}
       {pattern && <Dots pattern={pattern} center={center} />}
     </Fragment>
   );

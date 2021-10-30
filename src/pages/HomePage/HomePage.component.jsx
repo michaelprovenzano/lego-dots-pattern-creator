@@ -2,7 +2,6 @@ import React from 'react';
 import Tray from '../../components/Tray/Tray.component';
 import Toolbar from '../../components/Toolbar/Toolbar.component';
 import AppTitle from '../../components/AppTitle/AppTitle.component';
-import Canvas from '../../components/Canvas/Canvas.component';
 import PatternApp from '../../components/PatternApp/PatternApp.component';
 import KeyboardShortcuts from '../../components/KeyboardShortcuts/KeyboardShortcuts.component';
 
@@ -22,7 +21,6 @@ const HomePage = () => {
       >
         <AppTitle />
       </div>
-      {/* <Canvas /> */}
       <PatternApp />
       <Toolbar />
       <Tray />

@@ -1,0 +1,38 @@
+.settings-colors {
+  &__form {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(10em, 16em));
+    padding: 0 3.2rem;
+    margin-bottom: 5rem;
+  }
+
+  .input-text {
+    margin-bottom: 2rem;
+  }
+
+  .input-checkbox {
+    font-weight: 700;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+  }
+
+  .col {
+    flex: 1;
+    margin: 0 1rem;
+  }
+
+  .divider {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    opacity: 0.2;
+    border-radius: 1px;
+    margin: 2rem 0;
+  }
+}
