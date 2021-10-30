@@ -1,0 +1,36 @@
+.settings-home {
+  &__container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__form {
+    max-width: 60%;
+    margin-top: 10rem;
+  }
+
+  .input-text {
+    margin-bottom: 2rem;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+  }
+
+  .col {
+    flex: 1;
+    margin: 0 1rem;
+  }
+
+  .divider {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    opacity: 0.2;
+    border-radius: 1px;
+    margin: 2rem 0;
+  }
+}

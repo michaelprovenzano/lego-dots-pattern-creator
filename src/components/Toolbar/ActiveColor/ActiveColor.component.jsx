@@ -6,7 +6,7 @@ import ActiveColorSwatch from '../ActiveColorSwatch/ActiveColorSwatch.component'
 import { ReactComponent as ActiveColorIcon } from '../../../images/icon-active-color.svg';
 import legoColors from '../../../logic/legoColors';
 
-const ActiveColor = ({ activeColor, setSettings, app }) => {
+const ActiveColor = ({ activeColor, setEditor }) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
 
@@ -34,8 +34,7 @@ const ActiveColor = ({ activeColor, setSettings, app }) => {
             color={`rgb(${color.rgb.red}, ${color.rgb.green}, ${color.rgb.blue})`}
             onClick={e => {
               setIsOpen(false);
-              setSettings({ paintColor: color });
-              app.setPaintColor(color);
+              setEditor({ paintColor: color });
             }}
             key={i}
           />
