@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Pattern from './Pattern.component';
 
-const Patterns = ({ patterns, editor, generatorSettings }) => {
+const Patterns = ({ patterns, editor, generatorSettings, setPatterns }) => {
   const [repeatedPatterns, setRepeatedPatterns] = useState([]);
 
   const worldWidth = generatorSettings.worldDimensions.width;

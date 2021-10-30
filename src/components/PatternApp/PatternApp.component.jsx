@@ -20,7 +20,7 @@ const Canvas = ({ generatorSettings, setViewport, setApp }) => {
     };
 
     // eslint-disable-next-line
-  }, []);
+  }, [generatorSettings.worldDimensions]);
 
   const init = parent => {
     const app = new PIXI.Application({
@@ -67,11 +67,8 @@ const Canvas = ({ generatorSettings, setViewport, setApp }) => {
   }
 
   return (
-    <div className='parent'>
-      <div ref={ref} style={{ width: window.innerWidth, height: window.innerHeight }}>
-        <Patterns />
-      </div>
-      ;
+    <div className='parent' ref={ref} style={{ width: '100vw', height: '100vh' }}>
+      <Patterns />
     </div>
   );
 };

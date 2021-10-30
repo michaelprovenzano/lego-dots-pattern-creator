@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Tray.styles.scss';
 
 import { Link } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import ButtonBubble from '../Button_Bubble/Button_Bubble.component';
 import GeneratePatternButton from '../GeneratePatternButton/GeneratePatternButton.component';
+import Loader from 'react-loader-spinner';
 
 import { ReactComponent as PartsListIcon } from '../../images/icon-parts-list.svg';
 import { ReactComponent as SettingsIcon } from '../../images/icon-settings.svg';
@@ -18,26 +19,84 @@ import { ReactComponent as SinglePatternIcon } from '../../images/icon-single-pa
 import { ReactComponent as SeparatorIcon } from '../../images/icon-separator.svg';
 
 import { setEditor } from '../../redux/editor/editor.actions';
+import { setGeneratorSettings } from '../../redux/generatorSettings/generatorSettings.actions';
 
-const Tray = ({ app, editor, setEditor }) => {
+const Tray = ({
+  app,
+  editor,
+  viewport,
+  patterns,
+  generatorSettings,
+  setGeneratorSettings,
+  setEditor,
+}) => {
   const black = '#072126';
   const primary = '#1E95AC';
   const viewMode = editor.viewMode;
+  const [downloading, setDownloading] = useState(false);
+  const [startDimensions, setStartDimensions] = useState({});
+  const [crop, setCrop] = useState({ width: null, height: null });
+
+  let patternWidth = generatorSettings.patternSize.width * generatorSettings.studSize;
+  let patternHeight = generatorSettings.patternSize.height * generatorSettings.studSize;
+
+  let worldDimensions = generatorSettings.worldDimensions;
+
+  useEffect(() => {
+    if (!viewport) return;
+    if (viewMode === 'single') {
+      if (viewport.worldWidth === crop.width && viewport.worldHeight === crop.height && downloading)
+        download();
+    } else {
+      if (downloading) download();
+    }
+  });
+
+  const cropViewport = e => {
+    if (viewMode === 'single') {
+      setCrop({ width: patternWidth, height: patternHeight });
+      setStartDimensions({ ...worldDimensions });
+      setGeneratorSettings({ worldDimensions: { width: patternWidth, height: patternWidth } });
+    }
+  };
+
+  const extractImage = e => {
+    cropViewport();
+    setDownloading(true);
+  };
+
+  const download = e => {
+    app.renderer.plugins.extract.canvas(viewport).toBlob(b => {
+      const a = document.createElement('a');
+      document.body.append(a);
+      a.download = 'screenshot';
+      a.href = URL.createObjectURL(b);
+      a.click();
+      a.remove();
+      setDownloading(false);
+      setCrop({ width: null, height: null });
+      if (viewMode === 'single') setGeneratorSettings({ worldDimensions: startDimensions }); // only set world dimensions on single render
+    }, 'image/jpeg');
+  };
 
   return (
     <div className='tray'>
-      <ButtonBubble>
+      <ButtonBubble className='inactive'>
         <SettingsIcon stroke={black} />
       </ButtonBubble>
       <div className='tray__middle'>
-        <ButtonBubble>
+        <ButtonBubble className='inactive'>
           <PartsListIcon stroke={black} />
         </ButtonBubble>
         <SeparatorIcon className='separator' />
-        <ButtonBubble>
-          <DownloadIcon stroke={black} />
+        <ButtonBubble onClick={extractImage}>
+          {downloading ? (
+            <Loader type='TailSpin' color={primary} height={26} width={26} />
+          ) : (
+            <DownloadIcon stroke={black} />
+          )}
         </ButtonBubble>
-        <ButtonBubble>
+        <ButtonBubble className='inactive'>
           <JPGIcon stroke={black} />
         </ButtonBubble>
         <SeparatorIcon className='separator' />
@@ -72,4 +131,4 @@ const Tray = ({ app, editor, setEditor }) => {
 
 const mapStateToProps = state => ({ ...state });
 
-export default connect(mapStateToProps, { setEditor })(Tray);
+export default connect(mapStateToProps, { setEditor, setGeneratorSettings })(Tray);

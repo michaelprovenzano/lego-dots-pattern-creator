@@ -3,7 +3,7 @@ import Dots from './Dots.component';
 import Plate from './Plate.component';
 import { connect } from 'react-redux';
 
-const Pattern = ({ pattern, generatorSettings, viewport, center }) => {
+const Pattern = ({ pattern, generatorSettings, center }) => {
   const studSize = generatorSettings.studSize;
   let { width, height } = pattern;
 
