@@ -8,6 +8,7 @@ class LEGOElement {
     this.rotation = rotation;
     this.color = color;
 
+    this.data = this.data.bind(this);
     this.rotate = this.rotate.bind(this);
     this.setType = this.setType.bind(this);
     this.getType = this.getType.bind(this);
@@ -20,6 +21,16 @@ class LEGOElement {
     this.flipY = this.flipY.bind(this);
     this.svg = this.svg.bind(this);
     this.delete = this.delete.bind(this);
+  }
+
+  data() {
+    const { type, rotation, color } = this;
+    return {
+      type,
+      rotation,
+      color,
+      svg: this.svg,
+    };
   }
 
   flipX() {

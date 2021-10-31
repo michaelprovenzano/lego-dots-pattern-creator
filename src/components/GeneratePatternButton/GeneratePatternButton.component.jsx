@@ -5,7 +5,7 @@ import { ReactComponent as GeneratePatternIcon } from '../../images/icon-generat
 import { connect } from 'react-redux';
 import { setPatterns } from '../../redux/patterns/patterns.actions';
 
-const GeneratePatternButton = ({ generatorSettings, setPatterns }) => {
+const GeneratePatternButton = ({ editor, generatorSettings, setPatterns }) => {
   const primary = '#1E95AC';
 
   let dotColors = generatorSettings;
@@ -30,7 +30,18 @@ const GeneratePatternButton = ({ generatorSettings, setPatterns }) => {
   const generatePatterns = () => {
     const { width, height } = generatorSettings.patternRepeatSize;
 
-    const singlePattern = newPattern();
+    if (editor.viewMode === 'random') {
+      let randomPatterns = generateRandom(width, height);
+
+      setPatterns({ multiplePatterns: randomPatterns });
+    } else {
+      const singlePattern = newPattern();
+
+      setPatterns({ single: singlePattern });
+    }
+  };
+
+  const generateRandom = (width, height) => {
     const randomPatterns = [];
 
     for (let i = 0; i < height; i++) {
@@ -39,7 +50,7 @@ const GeneratePatternButton = ({ generatorSettings, setPatterns }) => {
       }
     }
 
-    setPatterns({ single: singlePattern, multiplePatterns: randomPatterns });
+    return randomPatterns;
   };
 
   return (
