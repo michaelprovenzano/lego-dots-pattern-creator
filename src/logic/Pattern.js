@@ -4,61 +4,97 @@ import legoColors from './legoColors';
 import { getRandom } from './utils';
 
 function Pattern({ width, height, dotColors, plateColors, maxColors, elementFrequency, density }) {
-  const rows = [];
-  const subPattern = [];
   if (!elementFrequency) elementFrequency = {};
 
   const limitedColors = limitMaxColors(dotColors, maxColors);
 
-  for (let row = 0; row < height / 2; row++) {
-    subPattern.push([]);
-    for (let column = 0; column < width / 2; column++) {
-      let randomEl = randomElement(limitedColors, {
-        LEGO_1x1_Round_Tile: elementFrequency.LEGO_1x1_Round_Tile || 1,
-        LEGO_1x1_Half_Round_Tile: elementFrequency.LEGO_1x1_Half_Round_Tile || 1,
-        LEGO_1x1_Quarter_Round_Tile: elementFrequency.LEGO_1x1_Quarter_Round_Tile || 1,
-        LEGO_1x1_Tile: elementFrequency.LEGO_1x1_Tile || 1,
-        Empty_Element: elementFrequency.Empty_Element || density.empty,
-      });
-      subPattern[row][column] = randomEl;
+  function mirroredPattern() {
+    // Placeholder until I make this safe for odd numbers
+    if (width % 2 > 0 || height % 2 > 0) return repeatedPattern();
+
+    let subPattern = new SubPattern(width / 2, height / 2);
+    const rows = [];
+
+    for (let row = 0; row < height / 2; row++) {
+      rows[row] = [];
+      const flippedElements = flipElements(subPattern[row], { flipX: true });
+
+      rows[row] = [...subPattern[row], ...flippedElements];
     }
+
+    const pattern = [...rows];
+
+    rows.reverse();
+    for (let row = 0; row < height / 2; row++) {
+      pattern.push(flipElements(rows[row], { flipY: true }).reverse());
+    }
+
+    return pattern;
   }
 
-  for (let row = 0; row < height / 2; row++) {
-    rows[row] = [];
-    const flippedElements = flipElements(subPattern[row], { flipX: true });
+  function repeatedPattern() {
+    let randomSize = Math.ceil(Math.random() * 2) + 1;
 
-    rows[row] = [...subPattern[row], ...flippedElements];
+    let subPattern = new SubPattern(randomSize, randomSize);
+    const pattern = [];
+
+    let [subRow, subCol] = [0, 0];
+    for (let row = 0; row < height; row++) {
+      pattern[row] = [];
+      for (let col = 0; col < width; col++) {
+        pattern[row][col] = new LEGOElement(subPattern[subRow][subCol]);
+        subCol === subPattern[subRow].length - 1 ? (subCol = 0) : subCol++;
+      }
+      subRow === subPattern.length - 1 ? (subRow = 0) : subRow++;
+    }
+
+    return pattern;
   }
 
-  const pattern = [...rows];
+  function SubPattern(width, height) {
+    const subPattern = [];
 
-  rows.reverse();
-  for (let row = 0; row < height / 2; row++) {
-    pattern.push(flipElements(rows[row], { flipY: true }).reverse());
+    for (let row = 0; row < height; row++) {
+      subPattern.push([]);
+      for (let column = 0; column < height; column++) {
+        let randomEl = randomElement(limitedColors, {
+          LEGO_1x1_Round_Tile: elementFrequency.LEGO_1x1_Round_Tile || 1,
+          LEGO_1x1_Half_Round_Tile: elementFrequency.LEGO_1x1_Half_Round_Tile || 1,
+          LEGO_1x1_Quarter_Round_Tile: elementFrequency.LEGO_1x1_Quarter_Round_Tile || 1,
+          LEGO_1x1_Tile: elementFrequency.LEGO_1x1_Tile || 1,
+          Empty_Element: elementFrequency.Empty_Element || density.empty,
+        });
+        subPattern[row][column] = randomEl;
+      }
+    }
+
+    return subPattern;
   }
 
-  function flipElements(elementArr, options) {
-    const { flipX, flipY } = options;
+  let patternModes = [repeatedPattern, mirroredPattern];
+  let random = Math.floor(Math.random() * 2);
 
-    let arr = elementArr.map((el, i) => {
-      let newEl = new LEGOElement(el);
-
-      if (flipX) newEl.flipX();
-      if (flipY) newEl.flipY();
-
-      return newEl;
-    });
-
-    return arr.reverse();
-  }
-
-  this.dots = pattern;
+  this.dots = patternModes[random]();
   this.plateColor = getRandom(plateColors);
   this.width = width;
   this.height = height;
 
   return this;
+}
+
+function flipElements(elementArr, options) {
+  const { flipX, flipY } = options;
+
+  let arr = elementArr.map((el, i) => {
+    let newEl = new LEGOElement(el);
+
+    if (flipX) newEl.flipX();
+    if (flipY) newEl.flipY();
+
+    return newEl;
+  });
+
+  return arr.reverse();
 }
 
 function randomElement(dotColors, skewQuantities = {}) {
