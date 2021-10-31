@@ -6,16 +6,25 @@ import { connect } from 'react-redux';
 import { setApp } from '../../redux/app/app.actions';
 import { setViewport } from '../../redux/viewport/viewport.actions';
 
-const Canvas = ({ generatorSettings, setViewport, setApp }) => {
+import { setPatterns } from '../../redux/patterns/patterns.actions';
+import legoColors from '../../logic/legoColors';
+import LEGOElement from '../../logic/LEGOElement';
+import elementTypes from '../../logic/ElementTypes';
+
+const Canvas = ({ generatorSettings, setViewport, setApp, setPatterns }) => {
   const ref = useRef(null);
   let debug = true;
 
   useEffect(() => {
     const current = ref.current;
-    init(current);
+    const { view, app } = init(current);
+    cacheTextures();
 
     return () => {
-      // remove the child on rerend
+      // remove the child on rerender
+      app.stage.removeChild(view);
+      view.destroy();
+      app.destroy();
       current.textContent = '';
     };
 
@@ -59,12 +68,28 @@ const Canvas = ({ generatorSettings, setViewport, setApp }) => {
     // generate pattern
     setViewport(view);
     setApp(app);
+
+    return { view, app };
   };
 
-  function border(viewport) {
+  const border = viewport => {
     const line = viewport.addChild(new PIXI.Graphics());
     line.lineStyle(10, 0xff0000).drawRect(0, 0, viewport.worldWidth, viewport.worldHeight);
-  }
+  };
+
+  const cacheTextures = () => {
+    const textures = {};
+    const types = Object.keys(elementTypes);
+
+    legoColors.forEach(color => {
+      types.forEach(type => {
+        const el = new LEGOElement({ type, color });
+        textures[`${type} ${color.id}`] = new PIXI.Texture.from(el.svg());
+      });
+    });
+
+    setPatterns({ textures });
+  };
 
   return (
     <div className='parent' ref={ref} style={{ width: '100vw', height: '100vh' }}>
@@ -75,4 +100,4 @@ const Canvas = ({ generatorSettings, setViewport, setApp }) => {
 
 const mapStateToProps = state => ({ ...state });
 
-export default connect(mapStateToProps, { setApp, setViewport })(Canvas);
+export default connect(mapStateToProps, { setApp, setViewport, setPatterns })(Canvas);

@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   single: null,
   multiplePatterns: [],
   patternsLayer: null,
+  textures: null,
 };
 
 const patternsReducer = (state = INITIAL_STATE, { type, payload }) => {

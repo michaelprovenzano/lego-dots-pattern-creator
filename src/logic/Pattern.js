@@ -1,5 +1,6 @@
 import LEGOElement from './LEGOElement';
 import legoColors from './legoColors';
+import { v4 as uuidv4 } from 'uuid';
 
 import { getRandom } from './utils';
 
@@ -42,7 +43,8 @@ function Pattern({ width, height, dotColors, plateColors, maxColors, elementFreq
     for (let row = 0; row < height; row++) {
       pattern[row] = [];
       for (let col = 0; col < width; col++) {
-        pattern[row][col] = new LEGOElement(subPattern[subRow][subCol]);
+        const el = new LEGOElement(subPattern[subRow][subCol]);
+        pattern[row][col] = el.data();
         subCol === subPattern[subRow].length - 1 ? (subCol = 0) : subCol++;
       }
       subRow === subPattern.length - 1 ? (subRow = 0) : subRow++;
@@ -78,6 +80,7 @@ function Pattern({ width, height, dotColors, plateColors, maxColors, elementFreq
   this.plateColor = getRandom(plateColors);
   this.width = width;
   this.height = height;
+  this.id = uuidv4();
 
   return this;
 }
@@ -91,7 +94,7 @@ function flipElements(elementArr, options) {
     if (flipX) newEl.flipX();
     if (flipY) newEl.flipY();
 
-    return newEl;
+    return newEl.data();
   });
 
   return arr.reverse();
@@ -127,7 +130,7 @@ function randomElement(dotColors, skewQuantities = {}) {
     type: randomType,
     color: randomColor,
     rotation: Math.ceil(Math.random() * 3) * 90,
-  });
+  }).data();
 }
 
 function limitMaxColors(dotColors, maxColors) {

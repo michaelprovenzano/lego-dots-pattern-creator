@@ -49,6 +49,8 @@ const Patterns = ({ patterns, editor, generatorSettings, setPatterns }) => {
     setRepeatedPatterns(allPatterns);
   };
 
+  if (!patterns.textures) return null;
+
   return (
     <Fragment>
       {patterns.single && editor.viewMode === 'single' && (

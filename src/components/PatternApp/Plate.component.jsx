@@ -25,9 +25,12 @@ const Plate = ({ pattern, viewport, generatorSettings, location, app }) => {
 
     return () => {
       layer.removeChild(plateSprite);
+      plateSprite.destroy();
+
       viewport.removeChild(layer);
+      layer.destroy();
     };
-  });
+  }, [pattern]);
 
   return null;
 };
