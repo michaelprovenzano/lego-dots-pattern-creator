@@ -1,4 +1,6 @@
 import React, { useRef, useEffect } from 'react';
+import './PatternApp.styles.scss';
+
 import * as PIXI from 'pixi.js';
 import { Viewport } from 'pixi-viewport';
 import Patterns from './Patterns.component';
@@ -11,7 +13,7 @@ import legoColors from '../../logic/legoColors';
 import LEGOElement from '../../logic/LEGOElement';
 import elementTypes from '../../logic/ElementTypes';
 
-const Canvas = ({ generatorSettings, setViewport, setApp, setPatterns }) => {
+const Canvas = ({ generatorSettings, editor, setViewport, setApp, setPatterns }) => {
   const ref = useRef(null);
   let debug = true;
 
@@ -92,7 +94,11 @@ const Canvas = ({ generatorSettings, setViewport, setApp, setPatterns }) => {
   };
 
   return (
-    <div className='parent' ref={ref} style={{ width: '100vw', height: '100vh' }}>
+    <div
+      className={`parent ${editor.editMode}`}
+      ref={ref}
+      style={{ width: '100vw', height: '100vh' }}
+    >
       <Patterns />
     </div>
   );
