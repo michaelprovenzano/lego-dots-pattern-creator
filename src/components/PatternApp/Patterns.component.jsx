@@ -1,9 +1,10 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import Pattern from './Pattern.component';
 
-const Patterns = ({ patterns, editor, generatorSettings, setPatterns }) => {
+const Patterns = ({ patterns, randomPatterns, editor, generatorSettings, setPatterns }) => {
   const [repeatedPatterns, setRepeatedPatterns] = useState([]);
+  let isMounted = useRef(false);
 
   const worldWidth = generatorSettings.worldDimensions.width;
   const worldHeight = generatorSettings.worldDimensions.height;
@@ -19,8 +20,10 @@ const Patterns = ({ patterns, editor, generatorSettings, setPatterns }) => {
   useEffect(() => {
     if (patterns.single && editor.viewMode === 'single') handleSingle();
     if (patterns.single && editor.viewMode === 'repeated') handleRepeated();
-    if (patterns.multiple && editor.viewMode === 'random') handleRepeated();
+    if (randomPatterns && editor.viewMode === 'random') handleRepeated();
 
+    isMounted.current = true;
+    return () => (isMounted.current = false);
     // eslint-disable-next-line
   }, [editor.viewMode]);
 
@@ -29,7 +32,16 @@ const Patterns = ({ patterns, editor, generatorSettings, setPatterns }) => {
   };
 
   const handleRepeated = () => {
-    let { width, height } = patterns.single;
+    let width, height;
+    if (editor.viewMode === 'repeated') {
+      width = patterns.single.width;
+      height = patterns.single.height;
+    }
+    if (editor.viewMode === 'random') {
+      width = randomPatterns[0].width;
+      height = randomPatterns[0].height;
+    }
+
     let [patternWidth, patternHeight] = [width * studSize, height * studSize];
     let patternOffsetX = patternWidth * (repeatX / 2) - patternWidth / 2;
     let patternOffsetY = patternHeight * (repeatY / 2) - patternHeight / 2;
@@ -61,8 +73,8 @@ const Patterns = ({ patterns, editor, generatorSettings, setPatterns }) => {
         repeatedPatterns.map((center, i) => (
           <Pattern pattern={patterns.single} center={center} key={i} />
         ))}
-      {patterns.multiplePatterns && editor.viewMode === 'random' && repeatedPatterns.length > 0
-        ? patterns.multiplePatterns.map((pattern, i) => (
+      {randomPatterns && editor.viewMode === 'random' && repeatedPatterns.length > 0
+        ? randomPatterns.map((pattern, i) => (
             <Pattern pattern={pattern} center={repeatedPatterns[i]} key={i} />
           ))
         : null}

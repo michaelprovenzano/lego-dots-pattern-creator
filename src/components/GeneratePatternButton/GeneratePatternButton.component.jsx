@@ -4,8 +4,9 @@ import Pattern from '../../logic/Pattern';
 import { ReactComponent as GeneratePatternIcon } from '../../images/icon-generate-pattern.svg';
 import { connect } from 'react-redux';
 import { setPatterns } from '../../redux/patterns/patterns.actions';
+import { setRandomPatterns } from '../../redux/randomPatterns/randomPatterns.actions';
 
-const GeneratePatternButton = ({ editor, generatorSettings, setPatterns }) => {
+const GeneratePatternButton = ({ editor, generatorSettings, setPatterns, setRandomPatterns }) => {
   const primary = '#1E95AC';
 
   let dotColors = generatorSettings;
@@ -33,7 +34,7 @@ const GeneratePatternButton = ({ editor, generatorSettings, setPatterns }) => {
     if (editor.viewMode === 'random') {
       let randomPatterns = generateRandom(width, height);
 
-      setPatterns({ multiplePatterns: randomPatterns });
+      setRandomPatterns(randomPatterns);
     } else {
       const singlePattern = newPattern();
 
@@ -62,4 +63,4 @@ const GeneratePatternButton = ({ editor, generatorSettings, setPatterns }) => {
 
 const mapStateToProps = state => ({ ...state });
 
-export default connect(mapStateToProps, { setPatterns })(GeneratePatternButton);
+export default connect(mapStateToProps, { setPatterns, setRandomPatterns })(GeneratePatternButton);
