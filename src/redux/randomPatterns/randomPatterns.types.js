@@ -1,0 +1,5 @@
+const types = {
+  SET_RANDOM_PATTERNS: 'SET_RANDOM_PATTERNS',
+  CLEAR_RANDOM_PATTERNS: 'CLEAR_RANDOM_PATTERNS',
+};
+export default types;
