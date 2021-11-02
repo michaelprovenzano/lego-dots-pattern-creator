@@ -77,7 +77,7 @@ function Pattern({ width, height, dotColors, plateColors, maxColors, elementFreq
   let random = Math.floor(Math.random() * 2);
 
   this.dots = patternModes[random]();
-  this.plateColor = getRandom(plateColors);
+  this.plateColor = getRandom(plateColors) || legoColors[0];
   this.width = width;
   this.height = height;
   this.id = uuidv4();
@@ -119,12 +119,18 @@ function randomElement(dotColors, skewQuantities = {}) {
     }
   }
 
-  const randomType = getRandom(possibleElements);
+  let randomType = getRandom(possibleElements);
 
   // get random color from redux state
   let randomColor = legoColors[0];
   if (randomType !== 'Empty')
     randomColor = getRandom(dotColors[randomType.replace(/\s/g, '')]['colors']);
+
+  // Catch cases where no colors are wanted
+  if (!randomColor) {
+    randomType = 'Empty';
+    randomColor = legoColors[0];
+  }
 
   return new LEGOElement({
     type: randomType,
