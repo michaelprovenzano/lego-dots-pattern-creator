@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './SettingsPlate.styles.scss';
 
 import legoColors from '../../../logic/legoColors';
-import InputText from '../../../components/InputText/InputText.component';
-import InputRange from '../../../components/InputRange/InputRange.component';
+// import InputText from '../../../components/InputText/InputText.component';
+// import InputRange from '../../../components/InputRange/InputRange.component';
 import InputCheckbox from '../../../components/InputCheckbox/InputCheckbox.component';
 import { connect } from 'react-redux';
 import { setGeneratorSettings } from '../../../redux/generatorSettings/generatorSettings.actions';

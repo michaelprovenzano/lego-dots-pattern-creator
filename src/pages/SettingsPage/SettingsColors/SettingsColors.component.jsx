@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SettingsColors.styles.scss';
 
 import legoColors from '../../../logic/legoColors';
-import InputRange from '../../../components/InputRange/InputRange.component';
 import InputCheckbox from '../../../components/InputCheckbox/InputCheckbox.component';
 import { connect } from 'react-redux';
 import { setGeneratorSettings } from '../../../redux/generatorSettings/generatorSettings.actions';
