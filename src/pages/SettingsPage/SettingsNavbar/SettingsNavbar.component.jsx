@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import './SettingsNavbar.styles.scss';
 
@@ -11,12 +12,15 @@ import { ReactComponent as QuarterRoundSettingsIcon } from '../../../images/icon
 import { ReactComponent as PlateSettingsIcon } from '../../../images/icon-settings-plate.svg';
 import { ReactComponent as SeparatorIcon } from '../../../images/icon-separator.svg';
 import { ReactComponent as CloseIcon } from '../../../images/icon-close.svg';
+import { connect } from 'react-redux';
+import { setEditor } from '../../../redux/editor/editor.actions';
 
-const SettingsNavbar = () => {
-  const black = '#072126';
-  const primary = '#1E95AC';
+import { colors } from '../../../variables';
+let { black } = colors;
 
+const SettingsNavbar = ({ setEditor }) => {
   const [active, setActive] = useState('home');
+  const history = useHistory();
 
   return (
     <div className='settings-navbar'>
@@ -65,12 +69,19 @@ const SettingsNavbar = () => {
         <div className='settings-navbar__name'>Pattern Generator Settings</div>
       </div>
       <div className='settings-navbar__right'>
-        <Link to='/'>
+        <button
+          onClick={e => {
+            setEditor({ viewMode: 'single' });
+            history.push('/');
+          }}
+        >
           <CloseIcon />
-        </Link>
+        </button>
       </div>
     </div>
   );
 };
 
-export default SettingsNavbar;
+const mapStateToProps = state => ({ ...state });
+
+export default connect(mapStateToProps, { setEditor })(SettingsNavbar);
