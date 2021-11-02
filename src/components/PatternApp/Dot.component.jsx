@@ -1,57 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as PIXI from 'pixi.js';
 import { connect } from 'react-redux';
+import { setPatterns } from '../../redux/patterns/patterns.actions';
 
-const Dot = ({ dot, layer }) => {
+const Dot = ({ element, texture, size, position, layer, row, col, setPatterns, onClick }) => {
+  let isMounted = useRef(false);
+
   useEffect(() => {
-    // let studSize = 50;
+    const sprite = new PIXI.Sprite(texture);
+    sprite.width = size;
+    sprite.height = size;
+    sprite.anchor.set(0.5, 0.5);
+    if (element.type !== 'Empty') sprite.angle = element.rotation;
+    sprite.position.set(...position);
 
-    // let layer = new PIXI.Container();
-    // viewport.addChild(layer);
+    sprite.interactive = true;
+    let isLocked = false;
 
-    // const texture = new PIXI.Texture.from(dot.svg());
-    // const sprite = new PIXI.Sprite(texture);
-    // sprite.width = studSize;
-    // sprite.height = studSize;
-    // sprite.position.set(position);
+    sprite.click = event => {
+      // Instead of putting this logic here, just set the active dot here
+      if (onClick)
+        onClick({
+          event,
+          element: {
+            dot: element,
+            isLocked,
+            row,
+            col,
+          },
+        });
+    };
 
-    // sprite.interactive = true;
-    // sprite.click = () => {};
-
-    layer.addChild(dot);
-
-    // const onClick = (e, dot) => {
-    //   let isAltDown = e.data.originalEvent.altKey;
-    //   if (isAltDown) return;
-
-    //   //
-    //   switch (editor.editMode) {
-    //     case 'add':
-    //       dot.add(editor.addShape, editor.paintColor);
-    //       break;
-    //     case 'rotate':
-    //       dot.rotate();
-    //       break;
-    //     case 'delete':
-    //       dot.delete();
-    //       break;
-    //     case 'paint':
-    //       if (editor.paintType === 'foreground') dot.setColor(editor.paintColor);
-    //       if (editor.paintType === 'background') this.pattern.plate.setColor(this.paintColor);
-    //       break;
-    //     case 'dropper':
-    //       let color = dot.getColor();
-    //       if (color) this.setPaintColor(color);
-    //       if (this.afterDropper) this.afterDropper(this);
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // }
-
+    layer.addChild(sprite);
+    isMounted.current = true;
     return () => {
-      // console.log('dot unmounted');
-      // layer.removeChild(dot);
+      isMounted.current = false;
+      layer.removeChild(sprite);
+      sprite.destroy();
     };
   });
 
@@ -60,4 +45,4 @@ const Dot = ({ dot, layer }) => {
 
 const mapStateToProps = state => ({ ...state });
 
-export default connect(mapStateToProps)(Dot);
+export default connect(mapStateToProps, { setPatterns })(Dot);
