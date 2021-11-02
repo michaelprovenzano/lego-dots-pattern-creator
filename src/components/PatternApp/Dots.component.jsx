@@ -1,121 +1,80 @@
-import { useEffect } from 'react';
+import { useEffect, useState, Fragment, useRef } from 'react';
 import * as PIXI from 'pixi.js';
 import { connect } from 'react-redux';
 import { setPatterns } from '../../redux/patterns/patterns.actions';
 import { setEditor } from '../../redux/editor/editor.actions';
-import LEGOElement from '../../logic/LEGOElement';
 
-const Dots = ({
-  pattern,
-  viewport,
-  editor,
-  center,
-  generatorSettings,
-  patterns,
-  setPatterns,
-  setEditor,
-}) => {
+import Dot from './Dot.component';
+
+const Dots = ({ pattern, viewport, center, generatorSettings, patterns, setCurrentEl }) => {
+  const [dotsLayer, setDotsLayer] = useState(null);
+  let isMounted = useRef(false);
+  const studSize = generatorSettings.studSize;
+
   useEffect(() => {
-    console.log('rendering dots');
-    const studSize = generatorSettings.studSize;
-    let [width, height] = [studSize * pattern.width, studSize * pattern.height];
-    const allDots = [];
-
     let layer = new PIXI.Container();
     viewport.addChild(layer);
+    setDotsLayer(layer);
 
-    let y = 0;
-    for (let r = 0; r < pattern.dots.length; r++) {
-      let row = pattern.dots[r];
-      let x = 0;
-      for (let c = 0; c < pattern.dots[r].length; c++) {
-        const el = row[c];
-        const texture = patterns.textures[`${el.type} ${el.color.id}`];
-        const sprite = new PIXI.Sprite(texture);
-        sprite.width = studSize;
-        sprite.height = studSize;
-        sprite.anchor.set(0.5, 0.5);
-        if (el.type !== 'Empty') sprite.angle = el.rotation;
-        sprite.position.set(
-          center[0] - width / 2 + x + studSize / 2,
-          center[1] - height / 2 + y + studSize / 2
-        );
-
-        sprite.interactive = true;
-        let viewMode = false;
-        if (editor.viewMode === 'random') viewMode = true;
-        sprite.click = e =>
-          onClick(e, {
-            dot: el,
-            pattern,
-            setPatterns,
-            editor,
-            setEditor,
-            viewMode,
-            row: r,
-            col: c,
-          });
-
-        allDots.push(sprite); // cache for cleanup
-        layer.addChild(sprite);
-
-        x += studSize;
-      }
-      y += studSize;
-    }
-
-    const onClick = (e, { dot, pattern, setPatterns, viewMode, row, col }) => {
-      let isAltDown = e.data.originalEvent.altKey;
-      if (isAltDown) return;
-      let dotEl = new LEGOElement(dot);
-
-      if (viewMode) return setPatterns({ single: { ...pattern } });
-
-      switch (editor.editMode) {
-        case 'add':
-          dotEl.setType(editor.addShape);
-          dotEl.setColor(editor.paintColor);
-          updatePattern();
-          break;
-        case 'rotate':
-          dotEl.rotate(90);
-          updatePattern();
-          break;
-        case 'delete':
-          dotEl.delete();
-          updatePattern();
-          break;
-        case 'paint':
-          if (editor.paintType === 'foreground') {
-            dotEl.setColor(editor.paintColor);
-            updatePattern();
-          }
-          if (editor.paintType === 'background') pattern.plateColor = editor.paintColor;
-          break;
-        case 'dropper':
-          let color = dotEl.getColor();
-          setEditor({ paintColor: color });
-          break;
-        default:
-          break;
-      }
-
-      function updatePattern() {
-        pattern['dots'][row][col] = dotEl.data();
-        setPatterns({ single: { ...pattern } });
-      }
-    };
+    isMounted.current = true;
 
     return () => {
-      allDots.forEach(dot => {
-        layer.removeChild(dot);
-        dot.destroy();
-      });
-      viewport.removeChild(layer);
-      layer.destroy();
+      isMounted.current = false;
+      if (!dotsLayer) return;
+      viewport.removeChild(dotsLayer);
+      dotsLayer.destroy();
     };
-  }, [pattern, editor]);
-  return null;
+    // eslint-disable-next-line
+  }, [pattern]);
+
+  const dots = [];
+
+  let y = 0;
+  for (let r = 0; r < pattern.dots.length; r++) {
+    let row = pattern.dots[r];
+    let x = 0;
+    for (let c = 0; c < pattern.dots[r].length; c++) {
+      let [width, height] = [studSize * pattern.width, studSize * pattern.height];
+      let element = row[c];
+
+      dots.push({
+        element: element,
+        texture: patterns.textures[`${element.type} ${element.color.id}`],
+        position: [
+          center[0] - width / 2 + x + studSize / 2,
+          center[1] - height / 2 + y + studSize / 2,
+        ],
+        row: r,
+        col: c,
+      });
+      x += studSize;
+    }
+    y += studSize;
+  }
+
+  const onClick = el => {
+    setCurrentEl(el);
+  };
+
+  return (
+    <Fragment>
+      {dots &&
+        dotsLayer &&
+        dots.map((dot, i) => (
+          <Dot
+            key={`dot-${i}`}
+            element={dot.element}
+            row={dot.row}
+            col={dot.col}
+            texture={dot.texture}
+            size={studSize}
+            position={dot.position}
+            layer={dotsLayer}
+            onClick={onClick}
+          />
+        ))}
+    </Fragment>
+  );
 };
 
 const mapStateToProps = state => ({ ...state });
