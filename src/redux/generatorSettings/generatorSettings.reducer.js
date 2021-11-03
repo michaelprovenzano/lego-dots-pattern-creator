@@ -4,12 +4,12 @@ import legoColors from '../../logic/legoColors';
 const INITIAL_STATE = {
   patternSize: { width: 6, height: 6 },
   patternRepeatSize: {
-    width: 10,
-    height: 10,
+    width: 8,
+    height: 8,
   },
   worldDimensions: {
-    width: 10000,
-    height: 10000,
+    width: 5000,
+    height: 5000,
   },
   studSize: 50,
   maxColors: 4,

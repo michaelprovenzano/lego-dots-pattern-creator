@@ -25,7 +25,7 @@ const Patterns = ({ patterns, randomPatterns, editor, generatorSettings, setPatt
     isMounted.current = true;
     return () => (isMounted.current = false);
     // eslint-disable-next-line
-  }, [editor.viewMode]);
+  }, [editor.viewMode, randomPatterns]);
 
   const handleSingle = () => {
     center = worldCenter;

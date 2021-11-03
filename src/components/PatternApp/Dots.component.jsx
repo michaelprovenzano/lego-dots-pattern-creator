@@ -6,9 +6,8 @@ import { setEditor } from '../../redux/editor/editor.actions';
 
 import Dot from './Dot.component';
 
-const Dots = ({ pattern, viewport, center, generatorSettings, patterns, setCurrentEl }) => {
+const Dots = ({ pattern, viewport, center, generatorSettings, patterns }) => {
   const [dotsLayer, setDotsLayer] = useState(null);
-  let isMounted = useRef(false);
   const studSize = generatorSettings.studSize;
 
   useEffect(() => {
@@ -16,10 +15,7 @@ const Dots = ({ pattern, viewport, center, generatorSettings, patterns, setCurre
     viewport.addChild(layer);
     setDotsLayer(layer);
 
-    isMounted.current = true;
-
     return () => {
-      isMounted.current = false;
       if (!dotsLayer) return;
       viewport.removeChild(dotsLayer);
       dotsLayer.destroy();
@@ -52,10 +48,6 @@ const Dots = ({ pattern, viewport, center, generatorSettings, patterns, setCurre
     y += studSize;
   }
 
-  const onClick = el => {
-    setCurrentEl(el);
-  };
-
   return (
     <Fragment>
       {dots &&
@@ -70,7 +62,7 @@ const Dots = ({ pattern, viewport, center, generatorSettings, patterns, setCurre
             size={studSize}
             position={dot.position}
             layer={dotsLayer}
-            onClick={onClick}
+            pattern={pattern}
           />
         ))}
     </Fragment>

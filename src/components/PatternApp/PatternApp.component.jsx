@@ -15,7 +15,7 @@ import elementTypes from '../../logic/ElementTypes';
 
 const Canvas = ({ generatorSettings, editor, setViewport, setApp, setPatterns }) => {
   const ref = useRef(null);
-  let debug = true;
+  let debug = false;
 
   useEffect(() => {
     const current = ref.current;
