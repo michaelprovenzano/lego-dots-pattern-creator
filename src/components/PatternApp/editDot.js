@@ -25,9 +25,11 @@ const EditDot = ({ element, editor, pattern, setEditor, setPatterns }) => {
     case 'paint':
       if (editor.paintType === 'foreground') {
         dotEl.setColor(editor.paintColor);
-        updatePattern();
       }
-      if (editor.paintType === 'background') pattern.plateColor = editor.paintColor;
+      if (editor.paintType === 'background') {
+        pattern.plateColor = editor.paintColor;
+      }
+      updatePattern();
       break;
     case 'dropper':
       let color = dotEl.getColor();
