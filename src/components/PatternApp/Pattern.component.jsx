@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect } from 'react';
 import Dots from './Dots.component';
 import Plate from './Plate.component';
+import SelectedBorder from './SelectedBorder.component';
 import { connect } from 'react-redux';
 
-const Pattern = ({ pattern, generatorSettings, center }) => {
+const Pattern = ({ pattern, generatorSettings, center, selected }) => {
   const studSize = generatorSettings.studSize;
   let { width, height } = pattern;
 
@@ -18,6 +19,7 @@ const Pattern = ({ pattern, generatorSettings, center }) => {
     <Fragment>
       {pattern && <Plate pattern={pattern} location={topLeft} />}
       {pattern && <Dots pattern={pattern} center={center} />}
+      {selected && <SelectedBorder width={plateWidth} height={plateHeight} topLeft={topLeft} />}
     </Fragment>
   );
 };

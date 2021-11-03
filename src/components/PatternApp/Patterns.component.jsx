@@ -74,9 +74,16 @@ const Patterns = ({ patterns, randomPatterns, editor, generatorSettings, setPatt
           <Pattern pattern={patterns.single} center={center} key={i} />
         ))}
       {randomPatterns && editor.viewMode === 'random' && repeatedPatterns.length > 0
-        ? randomPatterns.map((pattern, i) => (
-            <Pattern pattern={pattern} center={repeatedPatterns[i]} key={i} />
-          ))
+        ? randomPatterns.map((pattern, i) => {
+            return (
+              <Pattern
+                pattern={pattern}
+                center={repeatedPatterns[i]}
+                selected={pattern === patterns.single}
+                key={i}
+              />
+            );
+          })
         : null}
     </Fragment>
   );
