@@ -100,6 +100,7 @@ const Canvas = ({ generatorSettings, editor, setViewport, setApp, setPatterns })
   };
 
   const onResize = app => {
+    if (!app.renderer) return;
     app.renderer.resize(window.innerWidth, window.innerHeight);
   };
 
