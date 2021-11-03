@@ -20,9 +20,15 @@ const Canvas = ({ generatorSettings, editor, setViewport, setApp, setPatterns })
   useEffect(() => {
     const current = ref.current;
     const { view, app } = init(current);
+
     cacheTextures();
 
+    window.addEventListener('resize', () => onResize(app));
+
     return () => {
+      // Cleanup event listeners
+      window.removeEventListener('resize', () => onResize(app));
+
       // remove the child on rerender
       app.stage.removeChild(view);
       view.destroy();
@@ -91,6 +97,10 @@ const Canvas = ({ generatorSettings, editor, setViewport, setApp, setPatterns })
     });
 
     setPatterns({ textures });
+  };
+
+  const onResize = app => {
+    app.renderer.resize(window.innerWidth, window.innerHeight);
   };
 
   return (
