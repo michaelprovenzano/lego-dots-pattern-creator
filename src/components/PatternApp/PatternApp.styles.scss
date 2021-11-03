@@ -1,15 +1,18 @@
 .add {
-  cursor: url(../../images/cursors/icon-add.png) 8 8, auto;
+  cursor: url(../../images/cursors/icon-add.png) 9 9, auto;
 }
 .paint {
-  cursor: url(../../images/cursors/icon-paint.png) 8 8, auto;
+  cursor: url(../../images/cursors/icon-paint.png) 0 23, auto;
 }
 .dropper {
-  cursor: url(../../images/cursors/icon-dropper.png) 8 8, auto;
+  cursor: url(../../images/cursors/icon-dropper.png) 0 22, auto;
 }
 .delete {
-  cursor: url(../../images/cursors/icon-delete.png) 8 8, auto;
+  cursor: url(../../images/cursors/icon-delete.png) 13 12, auto;
 }
 .rotate {
-  cursor: url(../../images/cursors/icon-rotate.png) 8 8, auto;
+  cursor: url(../../images/cursors/icon-rotate.png) 13 12, auto;
+}
+.random {
+  cursor: default;
 }

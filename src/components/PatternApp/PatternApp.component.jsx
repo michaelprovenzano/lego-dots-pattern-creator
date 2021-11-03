@@ -105,7 +105,7 @@ const Canvas = ({ generatorSettings, editor, setViewport, setApp, setPatterns })
 
   return (
     <div
-      className={`parent ${editor.editMode}`}
+      className={`parent ${editor.editMode} ${editor.viewMode}`}
       ref={ref}
       style={{ width: '100vw', height: '100vh' }}
     >
