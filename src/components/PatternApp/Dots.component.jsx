@@ -1,4 +1,4 @@
-import { useEffect, useState, Fragment, useRef } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import * as PIXI from 'pixi.js';
 import { connect } from 'react-redux';
 import { setPatterns } from '../../redux/patterns/patterns.actions';
