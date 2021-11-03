@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/lego-dots-pattern-creator/static/css/main.db960a8b.chunk.css",
-    "main.js": "/lego-dots-pattern-creator/static/js/main.3057321e.chunk.js",
-    "main.js.map": "/lego-dots-pattern-creator/static/js/main.3057321e.chunk.js.map",
+    "main.css": "/lego-dots-pattern-creator/static/css/main.ecd2bf4a.chunk.css",
+    "main.js": "/lego-dots-pattern-creator/static/js/main.17009803.chunk.js",
+    "main.js.map": "/lego-dots-pattern-creator/static/js/main.17009803.chunk.js.map",
     "runtime-main.js": "/lego-dots-pattern-creator/static/js/runtime-main.05d9f258.js",
     "runtime-main.js.map": "/lego-dots-pattern-creator/static/js/runtime-main.05d9f258.js.map",
-    "static/js/2.d9425cd6.chunk.js": "/lego-dots-pattern-creator/static/js/2.d9425cd6.chunk.js",
-    "static/js/2.d9425cd6.chunk.js.map": "/lego-dots-pattern-creator/static/js/2.d9425cd6.chunk.js.map",
+    "static/js/2.c86da0ac.chunk.js": "/lego-dots-pattern-creator/static/js/2.c86da0ac.chunk.js",
+    "static/js/2.c86da0ac.chunk.js.map": "/lego-dots-pattern-creator/static/js/2.c86da0ac.chunk.js.map",
     "static/js/3.40851a16.chunk.js": "/lego-dots-pattern-creator/static/js/3.40851a16.chunk.js",
     "static/js/3.40851a16.chunk.js.map": "/lego-dots-pattern-creator/static/js/3.40851a16.chunk.js.map",
     "index.html": "/lego-dots-pattern-creator/index.html",
-    "static/css/main.db960a8b.chunk.css.map": "/lego-dots-pattern-creator/static/css/main.db960a8b.chunk.css.map",
-    "static/js/2.d9425cd6.chunk.js.LICENSE.txt": "/lego-dots-pattern-creator/static/js/2.d9425cd6.chunk.js.LICENSE.txt",
+    "static/css/main.ecd2bf4a.chunk.css.map": "/lego-dots-pattern-creator/static/css/main.ecd2bf4a.chunk.css.map",
+    "static/js/2.c86da0ac.chunk.js.LICENSE.txt": "/lego-dots-pattern-creator/static/js/2.c86da0ac.chunk.js.LICENSE.txt",
     "static/media/icon-active-color.f7d1ccc5.svg": "/lego-dots-pattern-creator/static/media/icon-active-color.f7d1ccc5.svg",
     "static/media/icon-active-paint-background.c90a1bf8.svg": "/lego-dots-pattern-creator/static/media/icon-active-paint-background.c90a1bf8.svg",
     "static/media/icon-active-paint-foreground.b5121dcd.svg": "/lego-dots-pattern-creator/static/media/icon-active-paint-foreground.b5121dcd.svg",
@@ -30,6 +30,7 @@
     "static/media/icon-paint.660dbb18.svg": "/lego-dots-pattern-creator/static/media/icon-paint.660dbb18.svg",
     "static/media/icon-parts-list.af325317.svg": "/lego-dots-pattern-creator/static/media/icon-parts-list.af325317.svg",
     "static/media/icon-pattern-settings.4c1564d4.svg": "/lego-dots-pattern-creator/static/media/icon-pattern-settings.4c1564d4.svg",
+    "static/media/icon-pointer.637a48e8.svg": "/lego-dots-pattern-creator/static/media/icon-pointer.637a48e8.svg",
     "static/media/icon-random-patterns.eb692ffd.svg": "/lego-dots-pattern-creator/static/media/icon-random-patterns.eb692ffd.svg",
     "static/media/icon-remove.4a8c095c.svg": "/lego-dots-pattern-creator/static/media/icon-remove.4a8c095c.svg",
     "static/media/icon-rotate.5fb4d6ba.svg": "/lego-dots-pattern-creator/static/media/icon-rotate.5fb4d6ba.svg",
@@ -45,8 +46,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.05d9f258.js",
-    "static/js/2.d9425cd6.chunk.js",
-    "static/css/main.db960a8b.chunk.css",
-    "static/js/main.3057321e.chunk.js"
+    "static/js/2.c86da0ac.chunk.js",
+    "static/css/main.ecd2bf4a.chunk.css",
+    "static/js/main.17009803.chunk.js"
   ]
 }
