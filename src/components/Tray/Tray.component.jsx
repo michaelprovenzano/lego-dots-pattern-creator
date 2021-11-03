@@ -89,7 +89,7 @@ const Tray = ({
           <PartsListIcon stroke={black} />
         </ButtonBubble>
         <SeparatorIcon className='separator' />
-        <ButtonBubble onClick={extractImage}>
+        <ButtonBubble onClick={extractImage} tip='Download Image' id='download' tipPlace='top'>
           {downloading ? (
             <Loader type='TailSpin' color={primary} height={26} width={26} />
           ) : (
@@ -101,25 +101,34 @@ const Tray = ({
         </ButtonBubble>
         <SeparatorIcon className='separator' />
         <Link to='/pattern-settings/home'>
-          <ButtonBubble>
+          <ButtonBubble tip='Pattern Settings' id='pattern-settings' tipPlace='top'>
             <PatternSettingsIcon stroke={black} />
           </ButtonBubble>
         </Link>
         <ButtonBubble
           active={viewMode === 'single'}
           onClick={e => setEditor({ viewMode: 'single' })}
+          tip='Single Pattern View'
+          id='single-pattern-view'
+          tipPlace='top'
         >
           <SinglePatternIcon stroke={viewMode === 'single' ? 'white' : black} />
         </ButtonBubble>
         <ButtonBubble
           active={viewMode === 'repeated'}
           onClick={e => setEditor({ viewMode: 'repeated' })}
+          tip='Repeated Pattern View'
+          id='repeated-pattern-view'
+          tipPlace='top'
         >
           <MultiplePatternsIcon stroke={viewMode === 'repeated' ? 'white' : black} />
         </ButtonBubble>
         <ButtonBubble
           active={viewMode === 'random'}
           onClick={e => setEditor({ viewMode: 'random' })}
+          tip='Random Pattern View'
+          id='random-pattern-view'
+          tipPlace='top'
         >
           <RandomPatternsIcon stroke={viewMode === 'random' ? 'white' : black} />
         </ButtonBubble>

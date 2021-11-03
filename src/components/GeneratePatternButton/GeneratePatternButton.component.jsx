@@ -55,7 +55,12 @@ const GeneratePatternButton = ({ editor, generatorSettings, setPatterns, setRand
   };
 
   return (
-    <ButtonBubble onClick={generatePatterns}>
+    <ButtonBubble
+      onClick={generatePatterns}
+      tip='Generate Pattern(s)'
+      id='generate-pattern'
+      tipPlace='top'
+    >
       <GeneratePatternIcon stroke={primary} />
     </ButtonBubble>
   );

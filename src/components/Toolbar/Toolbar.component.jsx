@@ -2,6 +2,8 @@ import React from 'react';
 import './Toolbar.styles.scss';
 import { connect } from 'react-redux';
 
+import ReactTooltip from 'react-tooltip';
+
 import ToolbarGroup from './ToolbarGroup/ToolbarGroup.component';
 import ButtonBubble from '../Button_Bubble/Button_Bubble.component';
 import ActiveColor from './ActiveColor/ActiveColor.component';
@@ -37,10 +39,16 @@ const Toolbar = ({ editor, setEditor }) => {
   return (
     <div className='toolbar'>
       <ToolbarGroup>
-        <ButtonBubble active={editMode === 'add'} onClick={e => setEditor({ editMode: 'add' })}>
+        <ButtonBubble
+          active={editMode === 'add'}
+          onClick={e => setEditor({ editMode: 'add' })}
+          tip='Add (A)'
+          id='add'
+          tipPlace='left'
+        >
           <AddIcon fill={editMode === 'add' ? activeColor : inactiveColor} />
         </ButtonBubble>
-        <ButtonBubble onClick={nextShape}>
+        <ButtonBubble onClick={nextShape} tip='Dot Shape (1, 2, 3, 4)' id='shape' tipPlace='left'>
           {addShape === '1x1 Tile' && <AddTileIcon />}
           {addShape === '1x1 Tile Round' && <AddTileRoundIcon />}
           {addShape === '1x1 Tile Quarter Round' && <AddTileQuarterRoundIcon />}
@@ -53,15 +61,28 @@ const Toolbar = ({ editor, setEditor }) => {
           onClick={e => {
             setEditor({ editMode: 'paint' });
           }}
+          tip='Paint (C)'
+          id='paint'
+          tipPlace='left'
         >
           <PaintIcon fill={editMode === 'paint' ? activeColor : inactiveColor} />
         </ButtonBubble>
         {paintType === 'background' ? (
-          <ButtonBubble onClick={e => setEditor({ paintType: 'foreground' })}>
+          <ButtonBubble
+            onClick={e => setEditor({ paintType: 'foreground' })}
+            tip='Foreground/Background (X)'
+            id='foreground'
+            tipPlace='left'
+          >
             <ActivePaintBackgroundIcon />
           </ButtonBubble>
         ) : (
-          <ButtonBubble onClick={e => setEditor({ paintType: 'background' })}>
+          <ButtonBubble
+            onClick={e => setEditor({ paintType: 'background' })}
+            tip='Foreground/Background (X)'
+            id='foreground'
+            tipPlace='left'
+          >
             <ActivePaintForegroundIcon />
           </ButtonBubble>
         )}
@@ -71,6 +92,9 @@ const Toolbar = ({ editor, setEditor }) => {
           onClick={e => {
             setEditor({ editMode: 'dropper' });
           }}
+          tip='Eye Dropper (F or I)'
+          id='dropper'
+          tipPlace='left'
         >
           <EyeDropperIcon fill={editMode === 'dropper' ? activeColor : inactiveColor} />
         </ButtonBubble>
@@ -82,6 +106,9 @@ const Toolbar = ({ editor, setEditor }) => {
           onClick={e => {
             setEditor({ editMode: 'delete' });
           }}
+          tip='Delete (D)'
+          id='delete'
+          tipPlace='left'
         >
           <RemoveIcon fill={editMode === 'delete' ? activeColor : inactiveColor} />
         </ButtonBubble>
@@ -90,6 +117,9 @@ const Toolbar = ({ editor, setEditor }) => {
           onClick={e => {
             setEditor({ editMode: 'rotate' });
           }}
+          tip='Rotate (R)'
+          id='rotate'
+          tipPlace='left'
         >
           <RotateIcon fill={editMode === 'rotate' ? activeColor : inactiveColor} />
         </ButtonBubble>
