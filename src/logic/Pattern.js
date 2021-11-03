@@ -36,7 +36,7 @@ function Pattern({ width, height, dotColors, plateColors, maxColors, elementFreq
   function repeatedPattern() {
     let randomSize = Math.ceil(Math.random() * 2) + 1;
 
-    let subPattern = new SubPattern(randomSize, randomSize);
+    let subPattern = new SubPattern(randomSize, randomSize, 2);
     const pattern = [];
 
     let [subRow, subCol] = [0, 0];
@@ -53,7 +53,7 @@ function Pattern({ width, height, dotColors, plateColors, maxColors, elementFreq
     return pattern;
   }
 
-  function SubPattern(width, height) {
+  function SubPattern(width, height, scale = 1) {
     const subPattern = [];
 
     for (let row = 0; row < height; row++) {
@@ -64,7 +64,7 @@ function Pattern({ width, height, dotColors, plateColors, maxColors, elementFreq
           LEGO_1x1_Half_Round_Tile: elementFrequency.LEGO_1x1_Half_Round_Tile || 1,
           LEGO_1x1_Quarter_Round_Tile: elementFrequency.LEGO_1x1_Quarter_Round_Tile || 1,
           LEGO_1x1_Tile: elementFrequency.LEGO_1x1_Tile || 1,
-          Empty_Element: elementFrequency.Empty_Element || density.empty,
+          Empty_Element: (elementFrequency.Empty_Element || density.empty) * scale,
         });
         subPattern[row][column] = randomEl;
       }
