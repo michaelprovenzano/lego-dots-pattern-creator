@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setEditor } from '../../redux/editor/editor.actions';
 
-const KeyboardShortcuts = ({ app, viewport, editor, generatorSettings, setEditor }) => {
+const KeyboardShortcuts = ({ app, viewport, patterns, editor, generatorSettings, setEditor }) => {
   useEffect(() => {
     window.addEventListener('keydown', handleKeydown);
 
@@ -35,14 +35,7 @@ const KeyboardShortcuts = ({ app, viewport, editor, generatorSettings, setEditor
         break;
       case 'Digit0':
       case 'Numpad0':
-        viewport.animate({
-          time: 100,
-          position: {
-            x: generatorSettings.worldDimensions.width / 2,
-            y: generatorSettings.worldDimensions.height / 2,
-          },
-          scale: 1,
-        });
+        handleFraming();
         break;
       case 'Digit1':
         setEditor({ addShape: '1x1 Tile' });
@@ -59,6 +52,28 @@ const KeyboardShortcuts = ({ app, viewport, editor, generatorSettings, setEditor
       default:
         break;
     }
+  };
+
+  const handleFraming = e => {
+    let repeatX = generatorSettings.patternRepeatSize.width;
+    let repeatY = generatorSettings.patternRepeatSize.height;
+
+    let scale = 1;
+    if (editor.viewMode === 'repeated' || editor.viewMode === 'random') {
+      let widthRatio = 1 / repeatX;
+      let heightRatio = 1 / repeatY;
+
+      widthRatio > heightRatio ? (scale = widthRatio) : (scale = heightRatio);
+    }
+
+    viewport.animate({
+      time: 100,
+      position: {
+        x: generatorSettings.worldDimensions.width / 2,
+        y: generatorSettings.worldDimensions.height / 2,
+      },
+      scale,
+    });
   };
 
   return false;

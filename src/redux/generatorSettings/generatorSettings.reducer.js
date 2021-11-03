@@ -11,7 +11,7 @@ const INITIAL_STATE = {
     width: 5000,
     height: 5000,
   },
-  studSize: 50,
+  studSize: 100,
   maxColors: 4,
   density: 5,
   '1x1Tile': {
