@@ -32,7 +32,7 @@ const Plate = ({ pattern, viewport, editor, generatorSettings, location, app }) 
       viewport.removeChild(layer);
       layer.destroy();
     };
-  }, [pattern]);
+  }, [pattern, generatorSettings]);
 
   return null;
 };

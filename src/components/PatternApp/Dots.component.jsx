@@ -21,7 +21,7 @@ const Dots = ({ pattern, viewport, center, generatorSettings, patterns }) => {
       dotsLayer.destroy();
     };
     // eslint-disable-next-line
-  }, [pattern]);
+  }, [pattern, generatorSettings]);
 
   const dots = [];
 

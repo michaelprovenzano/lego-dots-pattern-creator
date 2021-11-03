@@ -46,9 +46,9 @@ const Tray = ({
     if (!viewport) return;
     if (viewMode === 'single') {
       if (viewport.worldWidth === crop.width && viewport.worldHeight === crop.height && downloading)
-        download();
+        setTimeout(download, 1000); // Canvas needs time to rerender before downloading
     } else {
-      if (downloading) download();
+      if (downloading) setTimeout(download, 500); // Add a small delay so loading icon displays immediately
     }
   });
 
