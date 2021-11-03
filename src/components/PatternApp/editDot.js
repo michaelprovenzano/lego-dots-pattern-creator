@@ -1,10 +1,16 @@
 import LEGOElement from '../../logic/LEGOElement';
 
-const EditDot = ({ element, editor, pattern, setEditor, setPatterns }) => {
+const EditDot = ({ element, editor, patterns, pattern, setEditor, setPatterns }) => {
   if (!element) return null;
 
   let { dot, isLocked, row, col } = element;
-  if (isLocked) return setPatterns({ single: pattern });
+  if (isLocked) {
+    if (patterns.single === pattern) {
+      return setPatterns({ single: null });
+    } else {
+      return setPatterns({ single: pattern });
+    }
+  }
 
   let dotEl = new LEGOElement(dot);
 
