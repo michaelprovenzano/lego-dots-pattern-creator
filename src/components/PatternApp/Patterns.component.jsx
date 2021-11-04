@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Pattern from './Pattern.component';
 
-const Patterns = ({ patterns, randomPatterns, editor, generatorSettings, setPatterns }) => {
+const Patterns = ({ patterns, randomPatterns, editor, generatorSettings }) => {
   const [singlePattern, setSinglePattern] = useState(null);
   const [repeatedPatterns, setRepeatedPatterns] = useState([]);
 
@@ -24,7 +24,7 @@ const Patterns = ({ patterns, randomPatterns, editor, generatorSettings, setPatt
     if (randomPatterns && editor.viewMode === 'random') handleRepeated();
 
     // eslint-disable-next-line
-  }, [editor.viewMode, randomPatterns]);
+  }, [editor.viewMode, patterns, randomPatterns]);
 
   const handleSingle = () => {
     center = worldCenter;
