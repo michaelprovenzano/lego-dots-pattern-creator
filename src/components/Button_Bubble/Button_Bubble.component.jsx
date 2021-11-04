@@ -13,7 +13,7 @@ const Button_Bubble = ({ children, className, active, tip, tipPlace, id, ...othe
       >
         {children}
       </button>
-      <ReactTooltip place={tipPlace} type='dark' effect='solid' id={id} delayShow='800' />
+      <ReactTooltip place={tipPlace} type='dark' effect='solid' id={id} delayShow={800} />
     </Fragment>
   );
 };
