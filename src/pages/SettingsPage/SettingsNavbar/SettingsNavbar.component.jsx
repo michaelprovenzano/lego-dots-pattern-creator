@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import './SettingsNavbar.styles.scss';
 
@@ -20,7 +19,6 @@ let { black } = colors;
 
 const SettingsNavbar = ({ setEditor }) => {
   const [active, setActive] = useState('home');
-  const history = useHistory();
 
   return (
     <div className='settings-navbar'>

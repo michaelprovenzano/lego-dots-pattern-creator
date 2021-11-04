@@ -2,8 +2,6 @@ import React, { Fragment } from 'react';
 import './Toolbar.styles.scss';
 import { connect } from 'react-redux';
 
-import ReactTooltip from 'react-tooltip';
-
 import ToolbarGroup from './ToolbarGroup/ToolbarGroup.component';
 import ButtonBubble from '../Button_Bubble/Button_Bubble.component';
 import ActiveColor from './ActiveColor/ActiveColor.component';
