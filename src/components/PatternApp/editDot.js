@@ -18,6 +18,7 @@ const EditDot = ({ element, editor, patterns, pattern, setEditor, setPatterns })
     case 'add':
       dotEl.setType(editor.addShape);
       dotEl.setColor(editor.paintColor);
+      dotEl.setRotation(0);
       updatePattern();
       break;
     case 'rotate':
