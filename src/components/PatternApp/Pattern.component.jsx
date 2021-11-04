@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import Dots from './Dots.component';
 import Plate from './Plate.component';
 import SelectedBorder from './SelectedBorder.component';
@@ -12,8 +12,6 @@ const Pattern = ({ pattern, generatorSettings, center, selected }) => {
   let plateHeight = height * studSize;
 
   let topLeft = [center[0] - plateWidth / 2, center[1] - plateHeight / 2];
-
-  useEffect(() => {}, [generatorSettings]);
 
   return (
     <Fragment>
