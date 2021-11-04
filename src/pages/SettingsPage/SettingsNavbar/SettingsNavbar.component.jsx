@@ -69,14 +69,9 @@ const SettingsNavbar = ({ setEditor }) => {
         <div className='settings-navbar__name'>Pattern Generator Settings</div>
       </div>
       <div className='settings-navbar__right'>
-        <button
-          onClick={e => {
-            setEditor({ viewMode: 'single' });
-            history.push('/');
-          }}
-        >
+        <Link to='/'>
           <CloseIcon />
-        </button>
+        </Link>
       </div>
     </div>
   );
