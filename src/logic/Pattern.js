@@ -160,8 +160,10 @@ function limitMaxColors(dotColors, maxColors) {
     let randomIndex = Math.floor(Math.random() * allColorsArr.length);
     let randomColor = allColorsArr[randomIndex];
     allColorsArr.splice(randomIndex, 1);
-    randomColorsArr.push(randomColor);
+    randomColorsArr.push(allColorsArr);
     randomColorsMap[randomColor.id] = true;
+
+    if (allColorsArr.length === 0) break; // Break if limit colors is more than total colors
   }
 
   let limitedColors = {
