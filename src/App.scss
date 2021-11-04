@@ -22,6 +22,11 @@ body {
   font-size: 1.6rem;
 }
 
+input[type='text'],
+textarea {
+  border: none;
+}
+
 button {
   background-color: transparent;
   border: none;
