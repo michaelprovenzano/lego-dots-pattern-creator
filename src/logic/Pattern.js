@@ -36,7 +36,7 @@ function Pattern({ width, height, dotColors, plateColors, maxColors, elementFreq
   function repeatedPattern() {
     let randomSize = Math.ceil(Math.random() * 2) + 1;
 
-    let subPattern = new SubPattern(randomSize, randomSize, 2);
+    let subPattern = new SubPattern(randomSize, randomSize, 0.75);
     const pattern = [];
 
     let [subRow, subCol] = [0, 0];
