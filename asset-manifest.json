@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/lego-dots-pattern-creator/static/css/main.ecd2bf4a.chunk.css",
-    "main.js": "/lego-dots-pattern-creator/static/js/main.c1e48083.chunk.js",
-    "main.js.map": "/lego-dots-pattern-creator/static/js/main.c1e48083.chunk.js.map",
+    "main.js": "/lego-dots-pattern-creator/static/js/main.22a325c7.chunk.js",
+    "main.js.map": "/lego-dots-pattern-creator/static/js/main.22a325c7.chunk.js.map",
     "runtime-main.js": "/lego-dots-pattern-creator/static/js/runtime-main.05d9f258.js",
     "runtime-main.js.map": "/lego-dots-pattern-creator/static/js/runtime-main.05d9f258.js.map",
-    "static/js/2.c86da0ac.chunk.js": "/lego-dots-pattern-creator/static/js/2.c86da0ac.chunk.js",
-    "static/js/2.c86da0ac.chunk.js.map": "/lego-dots-pattern-creator/static/js/2.c86da0ac.chunk.js.map",
+    "static/js/2.67b54690.chunk.js": "/lego-dots-pattern-creator/static/js/2.67b54690.chunk.js",
+    "static/js/2.67b54690.chunk.js.map": "/lego-dots-pattern-creator/static/js/2.67b54690.chunk.js.map",
     "static/js/3.40851a16.chunk.js": "/lego-dots-pattern-creator/static/js/3.40851a16.chunk.js",
     "static/js/3.40851a16.chunk.js.map": "/lego-dots-pattern-creator/static/js/3.40851a16.chunk.js.map",
     "index.html": "/lego-dots-pattern-creator/index.html",
     "static/css/main.ecd2bf4a.chunk.css.map": "/lego-dots-pattern-creator/static/css/main.ecd2bf4a.chunk.css.map",
-    "static/js/2.c86da0ac.chunk.js.LICENSE.txt": "/lego-dots-pattern-creator/static/js/2.c86da0ac.chunk.js.LICENSE.txt",
+    "static/js/2.67b54690.chunk.js.LICENSE.txt": "/lego-dots-pattern-creator/static/js/2.67b54690.chunk.js.LICENSE.txt",
     "static/media/icon-active-color.f7d1ccc5.svg": "/lego-dots-pattern-creator/static/media/icon-active-color.f7d1ccc5.svg",
     "static/media/icon-active-paint-background.c90a1bf8.svg": "/lego-dots-pattern-creator/static/media/icon-active-paint-background.c90a1bf8.svg",
     "static/media/icon-active-paint-foreground.b5121dcd.svg": "/lego-dots-pattern-creator/static/media/icon-active-paint-foreground.b5121dcd.svg",
@@ -46,8 +46,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.05d9f258.js",
-    "static/js/2.c86da0ac.chunk.js",
+    "static/js/2.67b54690.chunk.js",
     "static/css/main.ecd2bf4a.chunk.css",
-    "static/js/main.c1e48083.chunk.js"
+    "static/js/main.22a325c7.chunk.js"
   ]
 }
