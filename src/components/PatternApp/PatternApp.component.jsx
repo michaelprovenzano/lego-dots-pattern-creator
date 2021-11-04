@@ -23,11 +23,11 @@ const Canvas = ({ generatorSettings, editor, setViewport, setApp, setPatterns })
 
     cacheTextures();
 
-    window.addEventListener('resize', () => onResize(app));
+    window.addEventListener('resize', () => onResize(app, view));
 
     return () => {
       // Cleanup event listeners
-      window.removeEventListener('resize', () => onResize(app));
+      window.removeEventListener('resize', () => onResize(app, view));
 
       // remove the child on rerender
       app.stage.removeChild(view);
@@ -41,6 +41,7 @@ const Canvas = ({ generatorSettings, editor, setViewport, setApp, setPatterns })
 
   const init = parent => {
     const app = new PIXI.Application({
+      autoResize: true,
       width: window.innerWidth,
       height: window.innerHeight,
       backgroundColor: 0x464646,
@@ -99,9 +100,11 @@ const Canvas = ({ generatorSettings, editor, setViewport, setApp, setPatterns })
     setPatterns({ textures });
   };
 
-  const onResize = app => {
+  const onResize = (app, view) => {
     if (!app.renderer) return;
+
     app.renderer.resize(window.innerWidth, window.innerHeight);
+    view.resize(window.innerWidth, window.innerHeight);
   };
 
   return (
