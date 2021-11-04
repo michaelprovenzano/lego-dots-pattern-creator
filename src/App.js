@@ -1,5 +1,5 @@
 import './App.scss';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import SettingsPage from './pages/SettingsPage/SettingsPage.component';
 import HomePage from './pages/HomePage/HomePage.component';
 
