@@ -1,10 +1,10 @@
-import React, { Fragment, useEffect, useState, useRef } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Pattern from './Pattern.component';
 
 const Patterns = ({ patterns, randomPatterns, editor, generatorSettings, setPatterns }) => {
+  const [singlePattern, setSinglePattern] = useState(null);
   const [repeatedPatterns, setRepeatedPatterns] = useState([]);
-  let isMounted = useRef(false);
 
   const worldWidth = generatorSettings.worldDimensions.width;
   const worldHeight = generatorSettings.worldDimensions.height;
@@ -18,12 +18,11 @@ const Patterns = ({ patterns, randomPatterns, editor, generatorSettings, setPatt
   let center = worldCenter;
 
   useEffect(() => {
+    setSinglePattern(patterns.single);
     if (patterns.single && editor.viewMode === 'single') handleSingle();
     if (patterns.single && editor.viewMode === 'repeated') handleRepeated();
     if (randomPatterns && editor.viewMode === 'random') handleRepeated();
 
-    isMounted.current = true;
-    return () => (isMounted.current = false);
     // eslint-disable-next-line
   }, [editor.viewMode, randomPatterns]);
 
@@ -65,13 +64,13 @@ const Patterns = ({ patterns, randomPatterns, editor, generatorSettings, setPatt
 
   return (
     <Fragment>
-      {patterns.single && editor.viewMode === 'single' && (
-        <Pattern pattern={patterns.single} center={center} />
+      {singlePattern && editor.viewMode === 'single' && (
+        <Pattern pattern={singlePattern} center={center} />
       )}
-      {patterns.single &&
+      {singlePattern &&
         editor.viewMode === 'repeated' &&
         repeatedPatterns.map((center, i) => (
-          <Pattern pattern={patterns.single} center={center} key={i} />
+          <Pattern pattern={singlePattern} center={center} key={i} />
         ))}
       {randomPatterns && editor.viewMode === 'random' && repeatedPatterns.length > 0
         ? randomPatterns.map((pattern, i) => {
@@ -79,7 +78,7 @@ const Patterns = ({ patterns, randomPatterns, editor, generatorSettings, setPatt
               <Pattern
                 pattern={pattern}
                 center={repeatedPatterns[i]}
-                selected={pattern === patterns.single}
+                selected={pattern === singlePattern}
                 key={i}
               />
             );

@@ -51,6 +51,7 @@ const Dot = ({
     };
 
     layer.addChild(sprite);
+
     return () => {
       layer.removeChild(sprite);
       sprite.destroy();
