@@ -1,16 +1,4 @@
 @import '../../styles/variables';
 
 .app-title {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  background-color: $color-primary;
-  width: 50rem;
-  height: 11rem;
-  border: 0.5rem solid $color-secondary;
-  border-radius: 0 0 3.2rem 3.2rem;
-  margin-top: -0.5rem;
-  font-size: 4rem;
-  font-weight: 700;
-  position: relative;
 }
