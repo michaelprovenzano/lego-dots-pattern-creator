@@ -85,9 +85,11 @@ const Tray = ({
         <SettingsIcon stroke={black} />
       </ButtonBubble>
       <div className='tray__middle'>
-        <ButtonBubble className='inactive'>
-          <PartsListIcon stroke={black} />
-        </ButtonBubble>
+        <Link to='/pattern-parts'>
+          <ButtonBubble>
+            <PartsListIcon stroke={black} />
+          </ButtonBubble>
+        </Link>
         <SeparatorIcon className='separator' />
         <ButtonBubble onClick={extractImage} tip='Download Image' id='download' tipPlace='top'>
           {downloading ? (

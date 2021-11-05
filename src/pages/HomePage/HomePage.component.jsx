@@ -14,9 +14,8 @@ const HomePage = () => {
           display: 'flex',
           justifyContent: 'center',
           position: 'fixed',
-          top: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
+          top: '3rem',
+          left: '3rem',
         }}
       >
         <AppTitle />
