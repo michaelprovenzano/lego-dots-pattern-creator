@@ -1,0 +1,19 @@
+.input-number {
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    color: white;
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
+  }
+
+  &__input {
+    height: 3rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    font-size: 1.6rem;
+    padding: 0 1rem;
+    border: none;
+  }
+}
