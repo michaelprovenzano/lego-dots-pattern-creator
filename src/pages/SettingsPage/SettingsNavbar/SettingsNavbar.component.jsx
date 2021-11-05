@@ -12,12 +12,11 @@ import { ReactComponent as PlateSettingsIcon } from '../../../images/icon-settin
 import { ReactComponent as SeparatorIcon } from '../../../images/icon-separator.svg';
 import { ReactComponent as CloseIcon } from '../../../images/icon-close.svg';
 import { connect } from 'react-redux';
-import { setEditor } from '../../../redux/editor/editor.actions';
 
 import { colors } from '../../../variables';
 let { black } = colors;
 
-const SettingsNavbar = ({ setEditor }) => {
+const SettingsNavbar = () => {
   const [active, setActive] = useState('home');
 
   return (
@@ -77,4 +76,4 @@ const SettingsNavbar = ({ setEditor }) => {
 
 const mapStateToProps = state => ({ ...state });
 
-export default connect(mapStateToProps, { setEditor })(SettingsNavbar);
+export default connect(mapStateToProps)(SettingsNavbar);
