@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import './PartsPage.styles.scss';
 import legoColors from '../../logic/legoColors';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as CloseIcon } from '../../images/icon-close.svg';
+import InputNumber from '../../components/InputNumber/InputNumber.component';
+import Container from '../../containers/Container/Container.component';
 import LEGOElement from '../../logic/LEGOElement';
 
-const PartsPage = ({ patterns }) => {
+import { setPatterns } from '../../redux/patterns/patterns.actions';
+
+const PartsPage = ({ patterns, setPatterns }) => {
   const [bom, setBom] = useState(null);
 
   useEffect(() => {
@@ -55,35 +60,57 @@ const PartsPage = ({ patterns }) => {
     setBom(tempBom);
   };
 
+  const updateQuantity = e => {
+    if (e.target.value < 0) return;
+    // setQuantity(e.target.value);
+    setPatterns({ quantity: e.target.value });
+  };
+
   return (
     <div className='parts-page'>
-      <Link to='/'>
-        <CloseIcon />
-      </Link>
-      <div className='bom'>
-        {bom &&
-          bom.map((el, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', marginBottom: '2rem' }}>
-              <span>{el.count}</span>
-              <span
-                dangerouslySetInnerHTML={{ __html: el.element.svg() }}
-                style={{
-                  display: 'inline-block',
-                  width: 30,
-                  marginRight: '2rem',
-                  marginLeft: '2rem',
-                }}
-              ></span>
-              <span>
-                {el.type} - {el.color.name}
-              </span>
-            </div>
-          ))}
+      <div className='parts-page-navbar'>
+        <InputNumber
+          label='Number of Patterns'
+          value={patterns.quantity}
+          onChange={updateQuantity}
+        />
+        <Link to='/'>
+          <CloseIcon />
+        </Link>
       </div>
+      <Container className='parts-page__bom'>
+        <table style={{ width: '100%' }}>
+          <thead>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Color</th>
+            <th>Quantity</th>
+          </thead>
+          <tbody>
+            {bom &&
+              bom.map((el, i) => (
+                <tr key={i} style={{ marginBottom: '2rem' }}>
+                  <td>
+                    <span
+                      dangerouslySetInnerHTML={{ __html: el.element.svg() }}
+                      style={{
+                        display: 'inline-block',
+                        width: 30,
+                      }}
+                    ></span>
+                  </td>
+                  <td>{el.type}</td>
+                  <td>{el.color.name}</td>
+                  <td>{el.count * patterns.quantity}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </Container>
     </div>
   );
 };
 
 const mapStateToProps = state => ({ ...state });
 
-export default connect(mapStateToProps)(PartsPage);
+export default connect(mapStateToProps, { setPatterns })(PartsPage);

@@ -2,9 +2,9 @@ import types from './patterns.types';
 
 const INITIAL_STATE = {
   single: null,
-  multiplePatterns: [],
   patternsLayer: null,
   textures: null,
+  quantity: 1,
 };
 
 const patternsReducer = (state = INITIAL_STATE, { type, payload }) => {
