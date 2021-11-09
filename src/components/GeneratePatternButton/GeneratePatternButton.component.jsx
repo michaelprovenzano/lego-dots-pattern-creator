@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import './GeneratePatternButton.styles.scss';
+
 import ButtonBubble from '../Button_Bubble/Button_Bubble.component';
 import Pattern from '../../logic/Pattern';
 import { ReactComponent as GeneratePatternIcon } from '../../images/icon-generate-pattern.svg';
@@ -55,14 +57,17 @@ const GeneratePatternButton = ({ editor, generatorSettings, setPatterns, setRand
   };
 
   return (
-    <ButtonBubble
-      onClick={generatePatterns}
-      tip='Generate Pattern(s)'
-      id='generate-pattern'
-      tipPlace='top'
-    >
-      <GeneratePatternIcon stroke={primary} />
-    </ButtonBubble>
+    <div className='generate-pattern-button'>
+      <ButtonBubble
+        onClick={generatePatterns}
+        tip='Generate Pattern(s)'
+        id='generate-pattern'
+        tipPlace='top'
+      >
+        <GeneratePatternIcon stroke={primary} />
+      </ButtonBubble>
+      <div className='generate-pattern-button__background'></div>
+    </div>
   );
 };
 

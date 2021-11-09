@@ -1,0 +1,9 @@
+@import '../../styles/variables';
+
+.generate-pattern-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: darken($color-primary, 12);
+  border-radius: 100%;
+}
