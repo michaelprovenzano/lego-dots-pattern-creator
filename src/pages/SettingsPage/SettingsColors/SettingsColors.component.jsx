@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import colorUtil from 'color-util';
 import './SettingsColors.styles.scss';
 
 import legoColors from '../../../logic/legoColors';
@@ -28,6 +29,20 @@ const SettingsColors = ({ element, generatorSettings, setGeneratorSettings }) =>
     setSelectedColors(selected);
   }, [element, generatorSettings]);
 
+  const sortedColors = colors => {
+    // Add hsl values
+    colors.forEach(color => {
+      let hsl = colorUtil.rgb.to.hsl({ r: color.rgb.red, g: color.rgb.green, b: color.rgb.blue });
+      color.hsl = hsl;
+    });
+
+    colors.sort((a, b) => {
+      return a.hsl.h - b.hsl.h;
+    });
+
+    return colors;
+  };
+
   const setColors = (color, i) => {
     let newColors;
     if (startIndex >= 0 && shift) {
@@ -36,7 +51,7 @@ const SettingsColors = ({ element, generatorSettings, setGeneratorSettings }) =>
       let reverse = i - startIndex < 0;
 
       newColors = { ...selectedColors };
-      let newColorKeys = Object.keys(selectedColors);
+      let newColorKeys = sortedColors(legoColors).map(color => color.id);
 
       let end = start + difference;
       if (reverse) {
@@ -70,7 +85,7 @@ const SettingsColors = ({ element, generatorSettings, setGeneratorSettings }) =>
       <div className='settings-colors__container'>
         <form className='settings-colors__form'>
           {selectedColors &&
-            legoColors.map((c, i) => (
+            sortedColors(legoColors).map((c, i) => (
               <InputCheckbox
                 key={`color-${i}`}
                 label={c.name}
