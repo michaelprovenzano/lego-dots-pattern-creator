@@ -81,9 +81,6 @@ const Tray = ({
 
   return (
     <div className='tray'>
-      <ButtonBubble className='inactive'>
-        <SettingsIcon stroke={black} />
-      </ButtonBubble>
       <div className='tray__middle'>
         <Link to='/pattern-parts'>
           <ButtonBubble>
@@ -134,8 +131,9 @@ const Tray = ({
         >
           <RandomPatternsIcon stroke={viewMode === 'random' ? 'white' : black} />
         </ButtonBubble>
+        <SeparatorIcon className='separator' />
+        <GeneratePatternButton />
       </div>
-      <GeneratePatternButton />
     </div>
   );
 };
